@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Service;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,5 +13,11 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
+        $services = config('service_item');
+        foreach ($services as $service) {
+            $new_service = new Service();
+            $new_service->fill($service);
+            $new_service->save();
+        }
     }
 }
