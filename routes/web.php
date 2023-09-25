@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ApartamentController;
+use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('apartaments', ApartamentController::class);
+Route::resource('apartments', ApartmentController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

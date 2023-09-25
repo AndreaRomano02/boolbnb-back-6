@@ -15,6 +15,6 @@ class Visit extends Model
 
     public function apartments()
     {
-        return $this->hasMany(Apartament::class);
+        return $this->hasMany(Apartment::class);
     }
 }
