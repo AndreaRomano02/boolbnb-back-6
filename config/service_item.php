@@ -1,39 +1,82 @@
 <?php return [
-
-    [
-        'label' => 'Parking',
-        'icon' => "fa-solid fa-square-parking",
-    ],
-    [
-        'label' => 'Smoker',
-        'icon' => "fa-solid fa-smoking",
-    ],
-    [
-        'label' => 'Tv',
-        'icon' => "fa-solid fa-tv",
-    ],
     [
         'label' => 'Wi-fi',
-        'icon' => "fa-solid fa-wifi",
+        'icon' => 'wifi',
     ],
     [
-        'label' => 'Pool',
-        'icon' => "fa-solid fa-person-swimming",
+        'label' => 'Cucina attrezzata',
+        'icon' => 'skillet',
     ],
     [
-        'label' => 'Kitchen',
-        'icon' => "fa-solid fa-kitchen-set",
+        'label' => 'TV',
+        'icon' => 'tv',
     ],
     [
-        'label' => 'Safe',
-        'icon' => "fa-solid fa-vault",
+        'label' => 'Aria condizionata',
+        'icon' => 'ac_unit',
     ],
     [
-        'label' => "Air Conditioner",
-        'icon' => "fa-solid fa-fan",
+        'label' => 'Lavatrice',
+        'icon' => 'local_laundry_service',
     ],
     [
-        'label' => 'Heating',
-        'icon' => "fa-solid fa-fire-flame-simple",
+        'label' => 'Parcheggio',
+        'icon' => 'local_parking',
+    ],
+    [
+        'label' => 'Animali domestici ammessi',
+        'icon' => 'pets',
+    ],
+    [
+        'label' => 'Camino',
+        'icon' => 'fireplace',
+    ],
+    [
+        'label' => 'Check-in autonomo',
+        'icon' => 'key',
+    ],
+    [
+        'label' => 'Palestra',
+        'icon' => 'exercise',
+    ],
+    [
+        'label' => 'Sauna',
+        'icon' => 'sauna',
+    ],
+    [
+        'label' => 'Accessibilità',
+        'icon' => 'accessible',
+    ],
+    [
+        'label' => 'Servizio biciclette',
+        'icon' => 'pedal_bike',
+    ],
+    [
+        'label' => 'Giardino',
+        'icon' => 'psychiatry',
+    ],
+    [
+        'label' => 'Terrazza',
+        'icon' => 'deck',
+    ],
+    [
+        'label' => 'Cassetta di sicurezza',
+        'icon' => 'lock',
+    ],
+    [
+        'label' => 'Servizio di lavanderia',
+        'icon' => 'laundry',
+    ],
+    [
+        'label' => 'Bar',
+        'icon' => 'local_bar',
+    ],
+    [
+        'label' => 'Camere per non fumatori',
+        'icon' => 'smoke_free',
+    ],
+    [
+        'label' => 'Ufficio',
+        'icon' => 'desk',
     ],
 ];
