@@ -19,7 +19,6 @@ class MessageSeeder extends Seeder
 
         $message = new Message();
         $message->apartment_id = Arr::random($apartmet_ids);
-
         $message->name = 'Mario';
         $message->surname = 'Rossi';
         $message->email = 'mariorossi@gmail.com';
