@@ -12,7 +12,6 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
