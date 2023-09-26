@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('sponsors', function (Blueprint $table) {
             $table->id();
             $table->string('plan');
-            $table->decimal('price', 5, 2);
-            $table->tinyInteger('duration');
+            $table->decimal('price', 4, 2);
+            $table->Integer('duration');
             $table->timestamps();
             $table->softDeletes();
         });
