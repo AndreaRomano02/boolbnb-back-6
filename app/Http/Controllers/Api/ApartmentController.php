@@ -146,19 +146,32 @@ class ApartmentController extends Controller
             ]
         );
         $apartment = Apartment::where('id', "$id")->first();
+
+        $address_info = str_replace(' ', '%20', $data_apartment['address']);
+        $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+        $query = "https://api.tomtom.com/search/2/geocode/$address_info.json?storeResult=false&lat=37.337&lon=-121.89&view=Unified&$key";
+
+        $client = new Client(['verify' => false]);
+        $response = $client->get($query);
+        $data = json_decode($response->getBody(), true);
+
         if (Arr::exists($data_apartment, 'image')) {
             if ($apartment->image) Storage::delete($apartment->image);
             $img_url = Storage::putFile('apartment_images', $data_apartment['image']);
             $data_apartment['image'] = $img_url;
         }
+
         $apartment->user_id = ($data_apartment['user_id']);
         $apartment->title = ($data_apartment['title']);
         $apartment->description = ($data_apartment['description']);
         $apartment->address = ($data_apartment['address']);
         $apartment->beds = ($data_apartment['beds']);
         $apartment->is_visible = ($data_apartment['is_visible']);
-        $apartment->update($data_apartment);
 
+        $apartment->latitude = $data['results'][0]['position']['lat'];
+        $apartment->longitude = $data['results'][0]['position']['lon'];
+
+        $apartment->update($data_apartment);
 
         return response()->json($apartment);
     }
