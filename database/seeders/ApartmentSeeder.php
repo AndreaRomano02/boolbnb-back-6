@@ -36,12 +36,9 @@ class ApartmentSeeder extends Seeder
 
             $new_apartment->services()->attach($apartments_services);
 
-            $apartments_sponsors = [];
-            foreach ($sponsors_ids as $sponsor_id) {
-                if ($faker->boolean())  $apartments_sponsors[] = $sponsor_id;
-            }
+            $apartments_sponsor = Arr::random($sponsors_ids);
 
-            $new_apartment->sponsors()->attach($apartments_sponsors);
+            $new_apartment->sponsors()->attach($apartments_sponsor);
         }
     }
 }
