@@ -114,10 +114,11 @@ class ApartmentController extends Controller
     public function update(Request $request, string $id)
     {
         $data_apartment = $request->all();
+
         $request->validate(
             [
                 'user_id' => 'required|string|exists:users,id',
-                'title' => ['required', 'string', Rule::unique('apartments', 'title')],
+                'title' => ['required', 'string', Rule::unique('apartments')->ignore($data_apartment['title'], 'title')],
                 'description' => 'required|string',
                 'address' => 'required|string',
                 'longitude' => 'nullable|string',
@@ -145,12 +146,10 @@ class ApartmentController extends Controller
                 'is_visible.boolean' => 'Valore inserito non valido',
             ]
         );
-        $apartment = Apartment::where('id', "$id")->first();
-
+        $apartment = Apartment::find($id);
         $address_info = str_replace(' ', '%20', $data_apartment['address']);
         $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
         $query = "https://api.tomtom.com/search/2/geocode/$address_info.json?storeResult=false&lat=37.337&lon=-121.89&view=Unified&$key";
-
         $client = new Client(['verify' => false]);
         $response = $client->get($query);
         $data = json_decode($response->getBody(), true);
