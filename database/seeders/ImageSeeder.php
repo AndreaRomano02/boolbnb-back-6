@@ -20,7 +20,7 @@ class ImageSeeder extends Seeder
             $n++;
             $new_image = new Image();
             $new_image->apartment_id = $apartment_id;
-            $new_image->path = "apartment_images/casa$n";
+            $new_image->path = "apartment_images/casa$n.jpg";
             $new_image->save();
         }
     }

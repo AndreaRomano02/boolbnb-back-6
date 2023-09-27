@@ -19,7 +19,7 @@ class ApartmentController extends Controller
     public function index()
     {
 
-        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits')->get();
+        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
 
         if (!$apartments) return response(null, 404);
         return response()->json($apartments);
@@ -103,7 +103,7 @@ class ApartmentController extends Controller
      */
     public function show(string $id)
     {
-        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits')->find($id);
+        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->find($id);
         if (!$apartments) return response(null, 404);
         return response()->json($apartments);
     }
