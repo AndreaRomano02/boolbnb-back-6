@@ -151,6 +151,9 @@ class ApartmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $apartment = Apartment::where('id', $id)->firstOrFail();
+        $apartment->delete();
+
+        return response()->json($apartment);
     }
 }
