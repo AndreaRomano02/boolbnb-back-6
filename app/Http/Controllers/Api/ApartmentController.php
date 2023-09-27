@@ -33,7 +33,7 @@ class ApartmentController extends Controller
         $data_apartment = $request->all();
         $request->validate(
             [
-                'user_id' => 'required|string|exists:users,id',
+                'user_id' => 'required|exists:users,id',
                 'title' => 'required|unique:apartments|string',
                 'description' => 'required|string',
                 'address' => 'required|string',
@@ -117,7 +117,7 @@ class ApartmentController extends Controller
 
         $request->validate(
             [
-                'user_id' => 'required|string|exists:users,id',
+                'user_id' => 'required|exists:users,id',
                 'title' => ['required', 'string', Rule::unique('apartments')->ignore($data_apartment['title'], 'title')],
                 'description' => 'required|string',
                 'address' => 'required|string',
