@@ -5,7 +5,7 @@
     ],
     [
         'label' => 'Cucina attrezzata',
-        'icon' => 'skillet',
+        'icon' => 'countertops',
     ],
     [
         'label' => 'TV',
@@ -37,11 +37,11 @@
     ],
     [
         'label' => 'Palestra',
-        'icon' => 'exercise',
+        'icon' => 'fitness_center',
     ],
     [
         'label' => 'Sauna',
-        'icon' => 'sauna',
+        'icon' => 'heat',
     ],
     [
         'label' => 'Accessibilità',
@@ -53,7 +53,7 @@
     ],
     [
         'label' => 'Giardino',
-        'icon' => 'psychiatry',
+        'icon' => 'deceased',
     ],
     [
         'label' => 'Terrazza',
