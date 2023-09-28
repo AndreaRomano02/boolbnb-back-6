@@ -95,6 +95,10 @@ class ApartmentController extends Controller
 
         $apartment->save();
 
+        if (array_key_exists('services', $data_apartment)) {
+            $apartment->services()->attach($data_apartment['services']);
+        }
+
         return response()->json($apartment);
     }
 
@@ -171,6 +175,9 @@ class ApartmentController extends Controller
         $apartment->longitude = $data['results'][0]['position']['lon'];
 
         $apartment->update($data_apartment);
+
+        if (!Arr::exists($data_apartment, 'services') && count($apartment->services))  $apartment->services()->detach();
+        elseif (Arr::exists($data_apartment, 'services'))  $apartment->technologys()->sync($data_apartment['services']);
 
         return response()->json($apartment);
     }
