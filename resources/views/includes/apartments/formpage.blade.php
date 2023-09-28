@@ -123,7 +123,7 @@
         @foreach ($services as $service)
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="service-{{ $service->id }}">{{ $service->label }} :</label>
-                <input class="form-check-input" type="checkbox" @if (in_array($service->id, old('services', $apartment_services_ids ?? []))) checked @endif
+                <input class="form-check-input" type="checkbox" @if (in_array($service->id, old('services', $apartment_service_ids ?? []))) checked @endif
                     id="service-{{ $service->id }}" value="{{ $service->id }}" name="services[]">
 
             </div>
@@ -141,9 +141,8 @@
         @foreach ($sponsors as $sponsor)
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
-                <input class="form-check-input" type="radio" @if (old('sponsor', $apartments_sponsor->id ?? '')) checked @endif
+                <input class="form-check-input" type="radio" @if (in_array($sponsor->id, old('sponsor', $apartment_sponsor_ids ?? []))) checked @endif
                     id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}" name="sponsor">
-
             </div>
         @endforeach
         @error('sponsor')
@@ -165,6 +164,8 @@
             </div>
         @enderror
     </div>
+    {{-- @dd($apartment_sponsor_ids) --}}
+
 
 </div>
 <button type="submit" class="btn btn-success my-3">

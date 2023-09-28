@@ -5,6 +5,6 @@
 
     <div class="container">
         <h2>Modifica Appartamento : </h2>
-        @includes('includes.apartments.form')
+        @include('includes.apartments.formpage')
     </div>
 @endsection

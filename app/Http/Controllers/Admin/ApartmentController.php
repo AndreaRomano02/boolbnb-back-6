@@ -31,10 +31,12 @@ class ApartmentController extends Controller
     public function create()
     {
         $user = Auth::user();
+        $apartment_service_ids = [];
+        $apartment_sponsor_ids = [];
         $apartment = new Apartment();
         $services = Service::all();
         $sponsors = Sponsor::all();
-        return view('admin.apartments.create', compact('user', 'apartment', 'services', 'sponsors'));
+        return view('admin.apartments.create', compact('user', 'apartment', 'services', 'sponsors', 'apartment_service_ids', 'apartment_sponsor_ids'));
     }
 
     /**
@@ -146,7 +148,14 @@ class ApartmentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = Auth::user();
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
+        $services = Service::all();
+        $sponsors = Sponsor::all();
+        $apartment_service_ids = $apartment->services->pluck('id')->toArray();
+        $apartment_sponsor_ids = $apartment->sponsors->pluck('id')->toArray();
+
+        return view('admin.apartments.edit', compact('apartment', 'user', 'services', 'sponsors', 'apartment_service_ids', 'apartment_sponsor_ids'));
     }
 
     /**
