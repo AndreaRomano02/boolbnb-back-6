@@ -44,7 +44,6 @@ class ApartmentController extends Controller
     {
 
         $data_apartment = $request->all();
-        // dd($data_apartment);
         $request->validate(
             [
                 'user_id' => 'required|exists:users,id',
@@ -84,7 +83,6 @@ class ApartmentController extends Controller
             ]
         );
         $apartment = new Apartment();
-        $image = new Image();
 
         $address_info = str_replace(' ', '%20', $data_apartment['address']);
         $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
@@ -130,7 +128,7 @@ class ApartmentController extends Controller
             $apartment->sponsors()->attach($data_apartment['sponsor']);
         }
 
-        return to_route('admin.apartments.index');
+        return to_route('admin.apartments.show', compact('apartment'));
     }
 
     /**
@@ -184,7 +182,13 @@ class ApartmentController extends Controller
     public function drop(String $id)
     {
         $apartment = Apartment::onlyTrashed()->findOrFail($id);
-        if ($apartment->image) Storage::delete($apartment->image);
+        if (count($apartment->images)) {
+
+            foreach ($apartment->images as $image) {
+
+                Storage::delete($image->path);
+            }
+        }
         $apartment->forceDelete();
         return to_route('admin.apartments.trash')->with('type', 'success')->with('message', 'Il progetto è stato eliminato definitivamente!');
     }
