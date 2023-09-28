@@ -30,8 +30,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+
 
 Route::prefix('admin/')->name('admin.')->group(function () {
+    //* TRASH
+
+    Route::get('apartments/trash', [AdminApartmentController::class, 'trash'])->name('apartments.trash');
+    Route::delete('apartments/dropAll', [AdminApartmentController::class, 'dropAll'])->name('apartments.dropAll');
+    Route::patch('apartments/{project}/restore', [AdminApartmentController::class, 'restore'])->name('apartments.restore');
+    Route::delete('apartments/{project}/drop', [AdminApartmentController::class, 'drop'])->name('apartments.drop');
+
+    //# Resources
     Route::resource('apartments', AdminApartmentController::class);
 });
+
+require __DIR__ . '/auth.php';
