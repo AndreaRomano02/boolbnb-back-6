@@ -19,9 +19,11 @@
     <section class="row row-cols-3">
         @foreach ($apartments as $apartment)
             <div class="card col m-2">
-                <div class="card-body d-flex justify-content-between">
-                    <h5 class="card-title">{{ $apartment->title }}</h5>
-                    <div class="ms-4 d-flex gap-3 align-items-center ">
+                <div class="card-body">
+                    <img v-if="apartment.images.length" class="card-img-top"
+                        src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                    <h5 class=" my-3 card-title">{{ $apartment->title }}</h5>
+                    <div class="d-flex gap-3 align-items-center ">
                         {{-- # SHOW --}}
                         <a href="{{ route('admin.apartments.show', $apartment->id) }}"
                             class="btn btn-sm btn-info d-flex align-items-center"><i class="fas fa-eye me-1"></i> Vedi</a>
