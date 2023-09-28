@@ -13,7 +13,10 @@
                 <div class="card">
                     {{-- <img src="..." class="card-img-top" alt="..."> --}}
                     <div class="card-body">
-                        <h5 class="card-title">{{ $apartment->title }}</h5>
+                        <img v-if="apartment.images.length" class="card-img-top"
+                            src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                        <h5 class="card-title">{{ $apartment->title }}
+                        </h5>
                         <p class="card-text">{{ $apartment->description }}</p>
 
                         <div class="d-flex justify-content-end gap-2">
