@@ -39,9 +39,10 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(String $id)
     {
-        //
+        $apartment = Apartment::withTrashed()->findOrFail($id);
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
