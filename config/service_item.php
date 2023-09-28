@@ -53,7 +53,7 @@
     ],
     [
         'label' => 'Giardino',
-        'icon' => 'deceased',
+        'icon' => 'yard',
     ],
     [
         'label' => 'Terrazza',
@@ -65,7 +65,7 @@
     ],
     [
         'label' => 'Servizio di lavanderia',
-        'icon' => 'laundry',
+        'icon' => 'dry_cleaning',
     ],
     [
         'label' => 'Bar',
