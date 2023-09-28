@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ApartmentController extends Controller
 {
@@ -163,7 +164,56 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // $data_apartment = $request->all();
+        // $request->validate(
+        //     [
+        //         'user_id' => 'required|exists:users,id',
+        //         'title' => ['required', 'string', Rule::unique('apartments')->ignore($data_apartment['title'], 'title')],
+        //         'description' => 'required|string',
+        //         'address' => 'required|string',
+        //         'longitude' => 'nullable|string',
+        //         'latitude' => 'nullable|string',
+        //         'image' => 'nullable',
+        //         'beds' => 'required|integer',
+        //         'rooms' => 'nullable|integer',
+        //         'bathrooms' => 'nullable|integer',
+        //         'square_meters' => 'nullable|integer',
+        //         'is_visible' => 'required|boolean',
+        //         'sponsor' => 'required|integer|exists:sponsors,id',
+        //         'services' => 'required|exists:services,id',
+        //     ],
+        //     [
+        //         'user_id.required' => 'E\' necessario possedere un\' account per la registrazione',
+        //         'user_id.exists' => 'l\' utente non esiste',
+        //         'title.required' => 'Il titolo è obbligatorio',
+        //         'title.unique' => 'Il titolo inserito esiste già',
+        //         'description.required' => 'La descrizione è obbligatoria',
+        //         'address.required' => 'L\' indirizzo è obbligatorio',
+        //         'image.image' => 'Il file inserito non è un immagine',
+        //         'beds.require' => 'Il numero di posti letto è obbligatorio',
+        //         'beds.integer' => 'Valore inserito non numerico',
+        //         'rooms.integer' => 'Valore inserito non numerico',
+        //         'bathrooms.integer' => 'Valore inserito non numerico',
+        //         'square_meters.integer' => 'Valore inserito non numerico',
+        //         'is_visible.required' => 'La disponibilità è obbligatoria',
+        //         'is_visible.boolean' => 'Valore inserito non valido',
+        //         'sponsor.require' => 'Lo sponsor è obbligatorio',
+        //         'services.require' => 'Almeno un servizio di è obbligatorio',
+        //         'sponsor.exists' => 'Lo sponsor scelto non esiste',
+        //         'services.exists' => 'Il servizio scelto non esiste',
+        //     ]
+        // );
+
+        // $user = Auth::user();
+        // $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
+
+        // $address_info = str_replace(' ', '%20', $data_apartment['address']);
+        // $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+        // $query = "https://api.tomtom.com/search/2/geocode/$address_info.json?storeResult=false&lat=37.337&lon=-121.89&view=Unified&$key";
+
+        // $client = new Client(['verify' => false]);
+        // $response = $client->get($query);
+        // $data = json_decode($response->getBody(), true);
     }
 
     /**
