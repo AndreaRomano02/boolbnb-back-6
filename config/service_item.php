@@ -40,8 +40,8 @@
         'icon' => 'fitness_center',
     ],
     [
-        'label' => 'Sauna',
-        'icon' => 'heat',
+        'label' => 'Piscina',
+        'icon' => 'pool',
     ],
     [
         'label' => 'Accessibilità',
