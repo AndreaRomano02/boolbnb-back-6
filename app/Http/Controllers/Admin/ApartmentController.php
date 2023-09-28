@@ -41,7 +41,8 @@ class ApartmentController extends Controller
      */
     public function show(String $id)
     {
-        $apartment = Apartment::withTrashed()->findOrFail($id);
+        $user = Auth::user();
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
         return view('admin.apartments.show', compact('apartment'));
     }
 

@@ -22,9 +22,9 @@
                 <div class="card-body d-flex justify-content-between">
                     <h5 class="card-title">{{ $apartment->title }}</h5>
                     <div class="ms-4 d-flex gap-3 align-items-center ">
-                        {{-- # SHOW
+                        {{-- # SHOW --}}
                         <a href="{{ route('admin.apartments.show', $apartment->id) }}"
-                            class="btn btn-sm btn-info d-flex align-items-center"><i class="fas fa-eye me-1"></i> Vedi</a> --}}
+                            class="btn btn-sm btn-info d-flex align-items-center"><i class="fas fa-eye me-1"></i> Vedi</a>
 
                         {{-- # RIPRISTINA --}}
                         <form method="POST" action="{{ route('admin.apartments.restore', $apartment) }}">

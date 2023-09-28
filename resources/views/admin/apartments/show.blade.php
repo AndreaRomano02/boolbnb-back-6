@@ -34,12 +34,24 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-5"></div>
-            <div class="col-2 align-self-center">
-                <a href="{{ route('admin.apartments.index') }}" class="button">Torna indietro</a>
-            </div>
-            <div class="col-4"></div>
+        <div class="d-flex gap-4 justify-content-center  align-items-center">
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-success">Torna indietro</a>
+            {{-- # DELETE --}}
+            @if (!$apartment->trashed())
+                <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
+                    data-title="{{ $apartment->title }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Sposta nel cestino</button>
+                </form>
+            @else
+                <form class="destroy-form" action="{{ route('admin.apartments.drop', $apartment->id) }}" method="POST"
+                    data-title="{{ $apartment->title }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Ellimina</button>
+                </form>
+            @endif
         </div>
     </div>
 @endsection

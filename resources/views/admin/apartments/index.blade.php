@@ -16,13 +16,24 @@
                         <h5 class="card-title">{{ $apartment->title }}</h5>
                         <p class="card-text">{{ $apartment->description }}</p>
 
-                        {{-- # DELETE --}}
-                        <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}"
-                            method="POST" data-title="{{ $apartment->title }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">Elimina <i class="fas fa-trash"></i></button>
-                        </form>
+                        <div class="d-flex justify-content-end gap-2">
+                            {{-- # SHOW --}}
+                            <a href="{{ route('admin.apartments.show', $apartment) }}" class="btn btn-info"><i
+                                    class="fas fa-eye"></i></a>
+
+                            {{-- # EDIT --}}
+                            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-warning"><i
+                                    class="fas fa-pencil"></i></a>
+
+                            {{-- # DELETE --}}
+                            <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}"
+                                method="POST" data-title="{{ $apartment->title }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
