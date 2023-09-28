@@ -1,4 +1,4 @@
-@if ($apartment->exists)
+@if ($apartment->id)
     <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
     @else
@@ -6,6 +6,8 @@
 @endif
 @csrf
 <div class="row">
+    {{-- user_id --}}
+    <input type="hidden" name="user_id" value="{{ $user->id }}">
     {{-- title --}}
     <div class="col-12 py-2">
         <label for="title" class="form-label">Nome dell' appartamento :</label>
@@ -121,7 +123,7 @@
         @foreach ($services as $service)
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="service-{{ $service->id }}">{{ $service->label }} :</label>
-                <input class="form-check-input" type="checkbox" @if (in_array($service->id, old('services', $apartment_services_ids ?? []))) checked @endif
+                <input class="form-check-input" type="checkbox" @if (in_array($service->id, old('services', $apartment_service_ids ?? []))) checked @endif
                     id="service-{{ $service->id }}" value="{{ $service->id }}" name="services[]">
 
             </div>
@@ -138,10 +140,9 @@
         {{-- nb --}}
         @foreach ($sponsors as $sponsor)
             <div class="form-check form-check-inline">
-                <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->label }}</label>
-                <input class="form-check-input" type="checkbox" @if (in_array($tech->id, old('sponsor', $apartment_sponsor ?? ''))) checked @endif
+                <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
+                <input class="form-check-input" type="radio" @if (in_array($sponsor->id, old('sponsor', $apartment_sponsor_ids ?? []))) checked @endif
                     id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}" name="sponsor">
-
             </div>
         @endforeach
         @error('sponsor')
@@ -155,7 +156,7 @@
         <div class="form-check">
             <label class="form-check-label" for="visibility">Visibilità :</label>
             <input class="form-check-input" type="checkbox" @if (old('is_visible', $apartment->is_visible ?? '')) checked @endif
-                id="visibility" value="{{ $apartment->is_visible }}" name="is_visible">
+                id="visibility" value="{{ old('is_visible', '1') }}" name="is_visible">
         </div>
         @error('is_visible')
             <div class="invalid-feedback">
@@ -163,6 +164,8 @@
             </div>
         @enderror
     </div>
+    {{-- @dd($apartment_sponsor_ids) --}}
+
 
 </div>
 <button type="submit" class="btn btn-success my-3">
