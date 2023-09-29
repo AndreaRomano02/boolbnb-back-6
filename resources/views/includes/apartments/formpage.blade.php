@@ -1,5 +1,5 @@
 @if ($apartment->id)
-    <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.apartments.update', $apartment->id) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
     @else
         <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
@@ -141,7 +141,7 @@
         @foreach ($sponsors as $sponsor)
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
-                <input class="form-check-input" type="radio" @if (in_array($sponsor->id, old('sponsor', $apartment_sponsor_ids ?? []))) checked @endif
+                <input class="form-check-input" type="radio" @if (in_array($sponsor->id, $apartment_sponsor_ids) || old('sponsor', $sponsor->id == 1)) checked @endif
                     id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}" name="sponsor">
             </div>
         @endforeach
