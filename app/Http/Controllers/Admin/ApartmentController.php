@@ -275,11 +275,14 @@ class ApartmentController extends Controller
     public function drop(String $id)
     {
         $apartment = Apartment::onlyTrashed()->findOrFail($id);
+        $image_old = Image::where('apartment_id', $id)->first();
+
         if (count($apartment->images)) {
 
             foreach ($apartment->images as $image) {
 
                 Storage::delete($image->path);
+                $image_old->forceDelete();
             }
         }
         $apartment->forceDelete();
