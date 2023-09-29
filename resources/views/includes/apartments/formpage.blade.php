@@ -39,6 +39,11 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    <div class="dropdown">
+        <ul id="dropdown" class="dropdown-menu">
+            <li class="dropdown-item"></li>
+        </ul>
+    </div>
     {{-- coordinate latitude --}}
     <div class="col-6 py-2">
         <label for="latitude">Latitudine :</label>
@@ -166,9 +171,12 @@
     </div>
     {{-- @dd($apartment_sponsor_ids) --}}
 
-
 </div>
 <button type="submit" class="btn btn-success my-3">
     Save
 </button>
 </form>
+
+@section('scripts')
+    @Vite('resources/js/tomtom.js')
+@endsection
