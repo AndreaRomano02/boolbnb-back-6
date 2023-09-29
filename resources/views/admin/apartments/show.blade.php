@@ -12,8 +12,10 @@
                         <div class="row">
                             <div class="col-10">
                                 <div>
-                                    <img v-if="apartment.images.length" class="card-img-top"
-                                        src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                                    @if (count($apartment->images))
+                                        <img class="card-img-top"
+                                            src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                                    @endif
                                     <div class="col-6">
                                         <div class=""><strong>Descrizione: </strong>{{ $apartment->description }}
                                         </div>

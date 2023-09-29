@@ -57,7 +57,7 @@ class ApartmentController extends Controller
                 'address' => 'required|string',
                 'longitude' => 'nullable|string',
                 'latitude' => 'nullable|string',
-                'image' => 'nullable',
+                'image' => 'nullable|image|mimes:jpeg,png,gif,svg',
                 'beds' => 'required|integer',
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
@@ -112,18 +112,19 @@ class ApartmentController extends Controller
 
         $apartment->save();
 
+        if (Arr::exists($data_apartment, 'image')) {
+            $folder = 'apartments_image';
+            $image = $request->file('image');
+            $imageName =  time() . '.' . $image->extension();
 
-        $folder = 'apartments_image';
-        $image = $request->file('image');
-        $imageName =  time() . '.' . $image->extension();
+            $image_path = "$folder/$imageName";
 
-        $image_path = "$folder/$imageName";
-
-        $image->storeAs($folder, $imageName);
-        $imageModel = new Image();
-        $imageModel->apartment_id = $apartment->id;
-        $imageModel->path =  $image_path;
-        $imageModel->save();
+            $image->storeAs($folder, $imageName);
+            $imageModel = new Image();
+            $imageModel->apartment_id = $apartment->id;
+            $imageModel->path =  $image_path;
+            $imageModel->save();
+        }
 
         if (array_key_exists('services', $data_apartment)) {
             $apartment->services()->attach($data_apartment['services']);
@@ -176,7 +177,7 @@ class ApartmentController extends Controller
                 'address' => 'required|string',
                 'longitude' => 'nullable|string',
                 'latitude' => 'nullable|string',
-                'image' => 'nullable',
+                'image' => 'nullable|image|mimes:jpeg,png,gif,svg',
                 'beds' => 'required|integer',
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
@@ -226,27 +227,24 @@ class ApartmentController extends Controller
         if (!Arr::exists($data_apartment, 'sponsor') && count($apartment->sponsors)) $apartment->sponsors()->detach();
         elseif (Arr::exists($data_apartment, 'sponsor')) $apartment->sponsors()->sync($data_apartment['sponsor']);
 
-        $imageModel = new Image();
-        $imageModel->apartment_id = $apartment->id;
-
         if (Arr::exists($data_apartment, 'image')) {
-            foreach ($apartment->images as $image) {
-                Storage::delete($image->path);
-                $image_old->forceDelete();
+
+            $imageModel = new Image();
+            $imageModel->apartment_id = $apartment->id;
+
+            if (Arr::exists($data_apartment, 'image')) {
+                foreach ($apartment->images as $image) {
+                    Storage::delete($image->path);
+                    $image_old->forceDelete();
+                }
+                $img_url = Storage::putFile('apartments_image', $data_apartment['image']);
+                $data_apartment['image'] = $img_url;
             }
-            $img_url = Storage::putFile('apartments_image', $data_apartment['image']);
-            $data_apartment['image'] = $img_url;
+
+            $imageModel->path =  $img_url;
+
+            $imageModel->save();
         }
-
-        $imageModel->path =  $img_url;
-
-        $imageModel->save();
-
-        // $image = $request->file('image');
-        // $folder = 'apartments_image';
-        // $imageName =  time() . '.' . $image->extension();
-        // $image_path = "$folder/$imageName";
-        // $image->storeAs($folder, $imageName);
 
         return to_route('admin.apartments.show', compact('apartment'));
     }
