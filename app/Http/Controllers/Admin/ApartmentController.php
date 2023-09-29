@@ -22,7 +22,9 @@ class ApartmentController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $apartments = Apartment::where('user_id', $user->id)->get();
+        $apartments = Apartment::where('user_id', $user->id)->with('images')->get();
+        // $apartment_images = Image::where('apartment_id',  $apartments->id)->get();
+        // dd($apartment_images);
         return view('admin.apartments.index', compact('apartments', 'user'));
     }
 
@@ -155,7 +157,7 @@ class ApartmentController extends Controller
         $sponsors = Sponsor::all();
         $apartment_service_ids = $apartment->services->pluck('id')->toArray();
         $apartment_sponsor_ids = $apartment->sponsors->pluck('id')->toArray();
-
+        // dd($apartment_sponsor_ids);
         return view('admin.apartments.edit', compact('apartment', 'user', 'services', 'sponsors', 'apartment_service_ids', 'apartment_sponsor_ids'));
     }
 
@@ -164,57 +166,91 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $data_apartment = $request->all();
-        // $request->validate(
-        //     [
-        //         'user_id' => 'required|exists:users,id',
-        //         'title' => ['required', 'string', Rule::unique('apartments')->ignore($data_apartment['title'], 'title')],
-        //         'description' => 'required|string',
-        //         'address' => 'required|string',
-        //         'longitude' => 'nullable|string',
-        //         'latitude' => 'nullable|string',
-        //         'image' => 'nullable',
-        //         'beds' => 'required|integer',
-        //         'rooms' => 'nullable|integer',
-        //         'bathrooms' => 'nullable|integer',
-        //         'square_meters' => 'nullable|integer',
-        //         'is_visible' => 'required|boolean',
-        //         'sponsor' => 'required|integer|exists:sponsors,id',
-        //         'services' => 'required|exists:services,id',
-        //     ],
-        //     [
-        //         'user_id.required' => 'E\' necessario possedere un\' account per la registrazione',
-        //         'user_id.exists' => 'l\' utente non esiste',
-        //         'title.required' => 'Il titolo è obbligatorio',
-        //         'title.unique' => 'Il titolo inserito esiste già',
-        //         'description.required' => 'La descrizione è obbligatoria',
-        //         'address.required' => 'L\' indirizzo è obbligatorio',
-        //         'image.image' => 'Il file inserito non è un immagine',
-        //         'beds.require' => 'Il numero di posti letto è obbligatorio',
-        //         'beds.integer' => 'Valore inserito non numerico',
-        //         'rooms.integer' => 'Valore inserito non numerico',
-        //         'bathrooms.integer' => 'Valore inserito non numerico',
-        //         'square_meters.integer' => 'Valore inserito non numerico',
-        //         'is_visible.required' => 'La disponibilità è obbligatoria',
-        //         'is_visible.boolean' => 'Valore inserito non valido',
-        //         'sponsor.require' => 'Lo sponsor è obbligatorio',
-        //         'services.require' => 'Almeno un servizio di è obbligatorio',
-        //         'sponsor.exists' => 'Lo sponsor scelto non esiste',
-        //         'services.exists' => 'Il servizio scelto non esiste',
-        //     ]
-        // );
+        $data_apartment = $request->all();
+        // dd($data_apartment);
+        $request->validate(
+            [
+                'user_id' => 'required|exists:users,id',
+                'title' => ['required', 'string', Rule::unique('apartments')->ignore($data_apartment['title'], 'title')],
+                'description' => 'required|string',
+                'address' => 'required|string',
+                'longitude' => 'nullable|string',
+                'latitude' => 'nullable|string',
+                'image' => 'nullable',
+                'beds' => 'required|integer',
+                'rooms' => 'nullable|integer',
+                'bathrooms' => 'nullable|integer',
+                'square_meters' => 'nullable|integer',
+                'is_visible' => 'required|boolean',
+                'sponsor' => 'required|integer|exists:sponsors,id',
+                'services' => 'required|exists:services,id',
+            ],
+            [
+                'user_id.required' => 'E\' necessario possedere un\' account per la registrazione',
+                'user_id.exists' => 'l\' utente non esiste',
+                'title.required' => 'Il titolo è obbligatorio',
+                'title.unique' => 'Il titolo inserito esiste già',
+                'description.required' => 'La descrizione è obbligatoria',
+                'address.required' => 'L\' indirizzo è obbligatorio',
+                'image.image' => 'Il file inserito non è un immagine',
+                'beds.require' => 'Il numero di posti letto è obbligatorio',
+                'beds.integer' => 'Valore inserito non numerico',
+                'rooms.integer' => 'Valore inserito non numerico',
+                'bathrooms.integer' => 'Valore inserito non numerico',
+                'square_meters.integer' => 'Valore inserito non numerico',
+                'is_visible.required' => 'La disponibilità è obbligatoria',
+                'is_visible.boolean' => 'Valore inserito non valido',
+                'sponsor.require' => 'Lo sponsor è obbligatorio',
+                'services.require' => 'Almeno un servizio di è obbligatorio',
+                'sponsor.exists' => 'Lo sponsor scelto non esiste',
+                'services.exists' => 'Il servizio scelto non esiste',
+            ]
+        );
+        $user = Auth::user();
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
+        $image_old = Image::where('apartment_id', $apartment->id)->first();
+        $address_info = str_replace(' ', '%20', $data_apartment['address']);
+        $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+        $query = "https://api.tomtom.com/search/2/geocode/$address_info.json?storeResult=false&lat=37.337&lon=-121.89&view=Unified&$key";
+        $client = new Client(['verify' => false]);
+        $response = $client->get($query);
+        $data = json_decode($response->getBody(), true);
+        $apartment->latitude = $data['results'][0]['position']['lat'];
+        $apartment->longitude = $data['results'][0]['position']['lon'];
 
-        // $user = Auth::user();
-        // $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
+        $apartment->update($data_apartment);
 
-        // $address_info = str_replace(' ', '%20', $data_apartment['address']);
-        // $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
-        // $query = "https://api.tomtom.com/search/2/geocode/$address_info.json?storeResult=false&lat=37.337&lon=-121.89&view=Unified&$key";
+        if (!Arr::exists($data_apartment, 'services') && count($apartment->services)) $apartment->services()->detach();
+        elseif (Arr::exists($data_apartment, 'services')) $apartment->services()->sync($data_apartment['services']);
 
-        // $client = new Client(['verify' => false]);
-        // $response = $client->get($query);
-        // $data = json_decode($response->getBody(), true);
+        if (!Arr::exists($data_apartment, 'sponsor') && count($apartment->sponsors)) $apartment->sponsors()->detach();
+        elseif (Arr::exists($data_apartment, 'sponsor')) $apartment->sponsors()->sync($data_apartment['sponsor']);
+
+        $imageModel = new Image();
+        $imageModel->apartment_id = $apartment->id;
+
+        if (Arr::exists($data_apartment, 'image')) {
+            foreach ($apartment->images as $image) {
+                Storage::delete($image->path);
+                $image_old->forceDelete();
+            }
+            $img_url = Storage::putFile('apartments_image', $data_apartment['image']);
+            $data_apartment['image'] = $img_url;
+        }
+
+        $imageModel->path =  $img_url;
+
+        $imageModel->save();
+
+        // $image = $request->file('image');
+        // $folder = 'apartments_image';
+        // $imageName =  time() . '.' . $image->extension();
+        // $image_path = "$folder/$imageName";
+        // $image->storeAs($folder, $imageName);
+
+        return to_route('admin.apartments.show', compact('apartment'));
     }
+
 
     /**
      * Remove the specified resource from storage.
