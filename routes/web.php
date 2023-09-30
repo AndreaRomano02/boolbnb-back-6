@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApartmentController as AdminApartmentController;
+use App\Http\Controllers\Guest\ApartmentController as GuestApartmentController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,14 +17,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// home
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+// dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+// controlls
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -31,7 +38,14 @@ Route::middleware('auth')->group(function () {
 });
 
 
+// guest
+Route::prefix('guest/')->name('guest.')->group(function () {
+    //# Resources
+    Route::resource('apartments', GuestApartmentController::class);
+});
 
+
+// admin
 Route::prefix('admin/')->name('admin.')->group(function () {
     //* TRASH
 
@@ -43,5 +57,6 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     //# Resources
     Route::resource('apartments', AdminApartmentController::class);
 });
+
 
 require __DIR__ . '/auth.php';

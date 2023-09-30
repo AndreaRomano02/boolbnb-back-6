@@ -1,0 +1,35 @@
+.columns-sx,
+.columns-dx{
+    height: calc(100vh - 132px);
+}
+.right-col{
+    height: 100%;
+        overflow-y:auto ;
+}
+
+.columns-sx{
+    background-color: aquamarine;
+    .left-col{
+        height: 100%;
+        overflow-y:auto ;
+
+        .dash-icon{
+            padding-top: 3px;
+            color: dimgrey;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #3eff0393; 
+}
+::-webkit-scrollbar-thumb:hover {
+    
+    background: #1e7204; 
+} 

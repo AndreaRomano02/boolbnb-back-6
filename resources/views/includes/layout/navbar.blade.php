@@ -16,10 +16,10 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">Scopri di più</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link @if (request()->routeIs('admin.apartments*')) active @endif"
                             href="{{ route('admin.apartments.index') }}">Apartments</a>
-                    </li>
+                    </li> --}}
 
                 @endguest
             </ul>
