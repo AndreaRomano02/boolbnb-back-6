@@ -179,4 +179,5 @@
 
 @section('scripts')
     @Vite('resources/js/tomtom.js')
+    @vite('resources/js/image-preview.js')
 @endsection
