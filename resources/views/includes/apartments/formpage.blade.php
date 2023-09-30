@@ -39,6 +39,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    {{-- dropdown --}}
     <div class="dropdown">
         <ul id="dropdown" class="dropdown-menu">
             <li class="dropdown-item"></li>
@@ -47,12 +48,12 @@
     {{-- coordinate latitude --}}
     <div class="col-6 py-2">
         <label for="latitude">Latitudine :</label>
-        <input type="text" id="latitude">
+        <input type="text" id="latitude" disabled>
     </div>
     {{-- coordinate longitude --}}
     <div class="col-6 py-2">
         <label for="longitude">Longitudine</label>
-        <input type="text" id="longitude">
+        <input type="text" id="longitude" disabled>
     </div>
     {{-- image --}}
     <div class="col-9 py-2">
@@ -179,5 +180,6 @@
 
 @section('scripts')
     @Vite('resources/js/tomtom.js')
-    @vite('resources/js/image-preview.js')
+    @Vite('resources/js/image-preview.js')
+    @Vite('resources/js/coordinate-preview.js')
 @endsection

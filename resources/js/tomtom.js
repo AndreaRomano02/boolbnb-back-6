@@ -14,7 +14,7 @@ inputElement.addEventListener("input", (e) => {
         country: "italy",
     };
 
-    if (input.length >= 6) {
+    if (input.length >= 15) {
         console.log(input);
         dropdown.classList.add("show");
         axios
@@ -34,6 +34,6 @@ inputElement.addEventListener("input", (e) => {
                     });
                 });
             })
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     }
 });
