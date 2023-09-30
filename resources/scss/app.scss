@@ -1,1 +1,8 @@
-@import '~bootstrap/scss/bootstrap'
+@use "dashboard";
+@use "utils";
+@import '~bootstrap/scss/bootstrap';
+
+body{
+    display: block;
+}
+

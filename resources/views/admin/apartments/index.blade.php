@@ -10,35 +10,38 @@
         @foreach ($apartments as $apartment)
             <div class="col">
 
-                <div class="card">
+                <div class="card h-100">
                     {{-- <img src="..." class="card-img-top" alt="..."> --}}
                     <div class="card-body">
-                        @if (count($apartment->images))
-                            <img class="card-img-top"
-                                src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
-                        @endif
-                        <h5 class="card-title">{{ $apartment->title }}
-                        </h5>
-                        <p class="card-text">{{ $apartment->description }}</p>
+                        <h3 class="card-title mb-3">{{ $apartment->title }}</h3>
+                        <div class="d-flex justify-content-between">
 
-                        <div class="d-flex justify-content-end gap-2">
-                            {{-- # SHOW --}}
-                            <a href="{{ route('admin.apartments.show', $apartment) }}" class="btn btn-info"><i
-                                    class="fas fa-eye"></i></a>
+                            <figure class="me-3">
+                                @if (count($apartment->images))
+                                    <img class="card-img-top"
+                                        src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                                @endif
+                            </figure>
 
-                            {{-- # EDIT --}}
-                            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-warning"><i
-                                    class="fas fa-pencil"></i></a>
+                            <div class="d-flex flex-column justify-content-start align-items-center gap-2">
+                                {{-- # SHOW --}}
+                                <a href="{{ route('admin.apartments.show', $apartment) }}" class="btn btn-info"><i
+                                        class="fas fa-eye"></i></a>
 
-                            {{-- # DELETE --}}
-                            <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}"
-                                method="POST" data-title="{{ $apartment->title }}">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                            </form>
+                                {{-- # EDIT --}}
+                                <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-warning"><i
+                                        class="fas fa-pencil"></i></a>
+
+                                {{-- # DELETE --}}
+                                <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}"
+                                    method="POST" data-title="{{ $apartment->title }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </div>
                         </div>
-
+                        <p class="card-text">{{ $apartment->description }}</p>
                     </div>
                 </div>
             </div>
