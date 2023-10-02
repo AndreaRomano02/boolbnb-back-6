@@ -12,7 +12,7 @@
         <input type="hidden" name="user_id" value="{{ $user->id }}">
         {{-- title --}}
         <div class="col-12 py-2">
-            <label for="title" class="form-label">Nome dell' appartamento :</label>
+            <label for="title" class="form-label">Nome dell' appartamento* :</label>
             <input type="text"
                 class="form-control @error('title') is-invalid @elseif(old('title')) is-valid @enderror"
                 id="title" placeholder="Es: Villa Flora" name="title"
@@ -23,7 +23,7 @@
         </div>
         {{-- description --}}
         <div class="col-12 py-2">
-            <label for="description" class="form-label">Descrizione :</label>
+            <label for="description" class="form-label">Descrizione* :</label>
             <textarea class="form-control @error('description') is-invalid @elseif(old('description')) is-valid @enderror"
                 id="description" placeholder="Inserisci la descrizione" name="description">{{ old('description', $apartment->description ?? '') }}</textarea>
             @error('description')
@@ -32,7 +32,7 @@
         </div>
         {{-- address --}}
         <div class="col-6 py-2">
-            <label for="address" class="form-label">Indirizzo :</label>
+            <label for="address" class="form-label">Indirizzo* :</label>
             <input type="text"
                 class="form-control @error('address') is-invalid @elseif(old('address')) is-valid @enderror"
                 id="address" placeholder="Es: Via tal de tali 11 00134 Roma" name="address"
@@ -79,7 +79,7 @@
         </div>
         {{-- beds --}}
         <div class="col-6 py-2">
-            <label for="beds" class="form-label">Numero di posti letto:</label>
+            <label for="beds" class="form-label">Numero di posti letto* :</label>
             <input type="number"
                 class="form-control @error('beds') is-invalid @elseif(old('beds')) is-valid @enderror"
                 id="beds" placeholder="Es: 4" name="beds" value="{{ old('beds', $apartment->beds ?? '') }}">
@@ -91,7 +91,7 @@
         </div>
         {{-- rooms --}}
         <div class="col-6 py-2">
-            <label for="rooms" class="form-label">Numero di letti:</label>
+            <label for="rooms" class="form-label">Numero di letti :</label>
             <input type="number"
                 class="form-control @error('rooms') is-invalid @elseif(old('rooms')) is-valid @enderror"
                 id="rooms" placeholder="Es: 4" name="rooms" value="{{ old('rooms', $apartment->rooms ?? '') }}">
@@ -129,7 +129,7 @@
         </div>
         {{-- services --}}
         <div class="col-12 py-2">
-            <h5>Servizi :</h5>
+            <h5>Servizi* :</h5>
             @foreach ($services as $service)
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="service-{{ $service->id }}">{{ $service->label }}</label>
