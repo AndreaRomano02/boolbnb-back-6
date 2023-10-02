@@ -55,7 +55,7 @@
                     {{-- # Vai ai tui Appartamenti --}}
                     <div class="card my-3">
                         <div class="card-body">
-                            <a class="btn btn-outline-secondary" href="{{ route('admin.apartments.index') }}">
+                            <a class="btn btn-outline-primary" href="{{ route('admin.apartments.index') }}">
                                 <div class="d-flex align-items-cente justify-content-start">
                                     <span class="material-symbols-outlined me-2">
                                         apartment
