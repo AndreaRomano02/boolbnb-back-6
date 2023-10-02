@@ -264,27 +264,4 @@ class ApartmentController extends Controller
         $apartment->restore();
         return to_route('admin.apartments.trash')->with('type', 'success')->with('message', 'Il progetto è stato ripristinato!');
     }
-
-    public function drop(String $id)
-    {
-        $apartment = Apartment::onlyTrashed()->findOrFail($id);
-        $image_old = Image::where('apartment_id', $id)->first();
-
-        if (count($apartment->images)) {
-
-            foreach ($apartment->images as $image) {
-
-                Storage::delete($image->path);
-                $image_old->forceDelete();
-            }
-        }
-        $apartment->forceDelete();
-        return to_route('admin.apartments.trash')->with('type', 'success')->with('message', 'Il progetto è stato eliminato definitivamente!');
-    }
-
-    public function dropAll()
-    {
-        Apartment::onlyTrashed()->forceDelete();
-        return to_route('admin.apartments.trash')->with('type', 'success')->with('message', 'Il tuo cestino è stato svuotato correttamente!');
-    }
 }
