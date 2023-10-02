@@ -152,7 +152,7 @@
                 <label class="form-check-label" for="visibility">Visibilità</label>
                 <input
                     class="form-check-input @error('is_visible') is-invalid @elseif(old('is_visible')) is-valid @enderror"
-                    type="checkbox" @if (old('is_visible', $apartment->is_visible ?? '')) checked @endif id="visibility"
+                    type="checkbox" @if (old('is_visible', $apartment->is_visible ?? [])) checked @endif id="visibility"
                     value="{{ old('is_visible', '1') }}" name="is_visible">
             </div>
             @error('is_visible')
