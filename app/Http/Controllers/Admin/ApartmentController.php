@@ -249,19 +249,19 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
-        return to_route('admin.apartments.index')->with('type', 'success')->with('message', 'Il progetto è stato spostato nel cestino!');
+        return to_route('admin.apartments.index')->with('type', 'success')->with('message', 'Il progetto è stato spostato nell\'arhcivio con successo!');
     }
 
-    public function trash()
+    public function archive()
     {
         $apartments = Apartment::onlyTrashed()->get();
-        return view('admin.apartments.trash', compact('apartments'));
+        return view('admin.apartments.archive', compact('apartments'));
     }
 
     public function restore(String $id)
     {
         $apartment = Apartment::onlyTrashed()->findOrFail($id);
         $apartment->restore();
-        return to_route('admin.apartments.trash')->with('type', 'success')->with('message', 'Il progetto è stato ripristinato!');
+        return to_route('admin.apartments.archive')->with('type', 'success')->with('message', 'Il progetto è stato ripristinato!');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dasboard')
 
 @section('content')
     <div class="container">
@@ -53,7 +53,7 @@
                     data-title="{{ $apartment->title }}">
                     @csrf
                     @method('DELETE')
-                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Sposta nel cestino</button>
+                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Sposta nell'archivio</button>
                 </form>
             @else
                 <form class="destroy-form" action="{{ route('admin.apartments.drop', $apartment->id) }}" method="POST"

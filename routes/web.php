@@ -47,9 +47,9 @@ Route::prefix('guest/')->name('guest.')->group(function () {
 
 // admin
 Route::prefix('admin/')->name('admin.')->group(function () {
-    //* TRASH
+    //* archive
 
-    Route::get('apartments/trash', [AdminApartmentController::class, 'trash'])->name('apartments.trash');
+    Route::get('apartments/archive', [AdminApartmentController::class, 'archive'])->name('apartments.archive');
     Route::delete('apartments/dropAll', [AdminApartmentController::class, 'dropAll'])->name('apartments.dropAll');
     Route::patch('apartments/{project}/restore', [AdminApartmentController::class, 'restore'])->name('apartments.restore');
     Route::delete('apartments/{project}/drop', [AdminApartmentController::class, 'drop'])->name('apartments.drop');
