@@ -44,12 +44,14 @@
         {{-- coordinate latitude --}}
         <div class="col-3 py-2 my-4">
             <label for="latitude">Latitudine :</label>
-            <input type="text" id="latitude" disabled>
+            <input @if ($apartment->latitude) value="{{ $apartment->latitude }}" @endif type="text"
+                id="latitude" disabled>
         </div>
         {{-- coordinate longitude --}}
         <div class="col-3 py-2 my-4">
             <label for="longitude">Longitudine</label>
-            <input type="text" id="longitude" disabled>
+            <input @if ($apartment->longitude) value="{{ $apartment->longitude }}" @endif type="text"
+                id="longitude" disabled>
         </div>
         {{-- dropdown --}}
         <div class="dropdown">

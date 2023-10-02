@@ -14,7 +14,7 @@ inputElement.addEventListener("input", (e) => {
         country: "italy",
     };
 
-    if (input.length >= 15) {
+    if (input.length >= 8) {
         console.log(input);
         dropdown.classList.add("show");
         axios
