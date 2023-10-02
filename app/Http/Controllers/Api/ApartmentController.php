@@ -16,10 +16,12 @@ class ApartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $title = $request['title'] ?? '';
 
-        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
+        if (strlen($title)) $apartments = Apartment::where('title', 'LIKE', "%$title%")->with('messages', 'services', 'sponsors', 'visits', 'images')->get();
+        else $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
 
         if (!$apartments) return response(null, 404);
         return response()->json($apartments);
