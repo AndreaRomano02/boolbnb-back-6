@@ -62,7 +62,7 @@ class ApartmentController extends Controller
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
                 'square_meters' => 'nullable|integer',
-                'is_visible' => 'required|boolean',
+                'is_visible' => 'nullable|boolean',
                 'services' => 'required|exists:services,id',
             ],
             [
@@ -78,7 +78,6 @@ class ApartmentController extends Controller
                 'rooms.integer' => 'Valore inserito non numerico',
                 'bathrooms.integer' => 'Valore inserito non numerico',
                 'square_meters.integer' => 'Valore inserito non numerico',
-                'is_visible.required' => 'La disponibilità è obbligatoria',
                 'is_visible.boolean' => 'Valore inserito non valido',
                 'services.required' => 'Almeno un servizio è obbligatorio',
                 'services.exists' => 'Il servizio scelto non esiste',
@@ -178,7 +177,7 @@ class ApartmentController extends Controller
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
                 'square_meters' => 'nullable|integer',
-                'is_visible' => 'required|boolean',
+                'is_visible' => 'nullable|boolean',
                 'services' => 'required|exists:services,id',
             ],
             [
@@ -194,7 +193,6 @@ class ApartmentController extends Controller
                 'rooms.integer' => 'Valore inserito non numerico',
                 'bathrooms.integer' => 'Valore inserito non numerico',
                 'square_meters.integer' => 'Valore inserito non numerico',
-                'is_visible.required' => 'La disponibilità è obbligatoria',
                 'is_visible.boolean' => 'Valore inserito non valido',
                 'services.require' => 'Almeno un servizio di è obbligatorio',
                 'services.exists' => 'Il servizio scelto non esiste',
