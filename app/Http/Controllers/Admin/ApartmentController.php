@@ -63,7 +63,6 @@ class ApartmentController extends Controller
                 'bathrooms' => 'nullable|integer',
                 'square_meters' => 'nullable|integer',
                 'is_visible' => 'required|boolean',
-                'sponsor' => 'required|exists:sponsors,id',
                 'services' => 'required|exists:services,id',
             ],
             [
@@ -81,9 +80,7 @@ class ApartmentController extends Controller
                 'square_meters.integer' => 'Valore inserito non numerico',
                 'is_visible.required' => 'La disponibilità è obbligatoria',
                 'is_visible.boolean' => 'Valore inserito non valido',
-                'sponsor.required' => 'Almeno uno sponsor è obbligatorio',
                 'services.required' => 'Almeno un servizio è obbligatorio',
-                'sponsor.exists' => 'Lo sponsor scelto non esiste',
                 'services.exists' => 'Il servizio scelto non esiste',
             ]
         );
@@ -130,9 +127,9 @@ class ApartmentController extends Controller
             $apartment->services()->attach($data_apartment['services']);
         }
 
-        if (array_key_exists('sponsor', $data_apartment)) {
-            $apartment->sponsors()->attach($data_apartment['sponsor']);
-        }
+        // if (array_key_exists('sponsor', $data_apartment)) {
+        //     $apartment->sponsors()->attach($data_apartment['sponsor']);
+        // }
 
         return to_route('admin.apartments.show', compact('apartment'));
     }
@@ -158,7 +155,6 @@ class ApartmentController extends Controller
         $sponsors = Sponsor::all();
         $apartment_service_ids = $apartment->services->pluck('id')->toArray();
         $apartment_sponsor_ids = $apartment->sponsors->pluck('id')->toArray();
-        // dd($apartment_sponsor_ids);
         return view('admin.apartments.edit', compact('apartment', 'user', 'services', 'sponsors', 'apartment_service_ids', 'apartment_sponsor_ids'));
     }
 
@@ -183,7 +179,6 @@ class ApartmentController extends Controller
                 'bathrooms' => 'nullable|integer',
                 'square_meters' => 'nullable|integer',
                 'is_visible' => 'required|boolean',
-                'sponsor' => 'required|exists:sponsors,id',
                 'services' => 'required|exists:services,id',
             ],
             [
@@ -201,9 +196,7 @@ class ApartmentController extends Controller
                 'square_meters.integer' => 'Valore inserito non numerico',
                 'is_visible.required' => 'La disponibilità è obbligatoria',
                 'is_visible.boolean' => 'Valore inserito non valido',
-                'sponsor.require' => 'Lo sponsor è obbligatorio',
                 'services.require' => 'Almeno un servizio di è obbligatorio',
-                'sponsor.exists' => 'Lo sponsor scelto non esiste',
                 'services.exists' => 'Il servizio scelto non esiste',
             ]
         );
@@ -224,8 +217,8 @@ class ApartmentController extends Controller
         if (!Arr::exists($data_apartment, 'services') && count($apartment->services)) $apartment->services()->detach();
         elseif (Arr::exists($data_apartment, 'services')) $apartment->services()->sync($data_apartment['services']);
 
-        if (!Arr::exists($data_apartment, 'sponsor') && count($apartment->sponsors)) $apartment->sponsors()->detach();
-        elseif (Arr::exists($data_apartment, 'sponsor')) $apartment->sponsors()->sync($data_apartment['sponsor']);
+        // if (!Arr::exists($data_apartment, 'sponsor') && count($apartment->sponsors)) $apartment->sponsors()->detach();
+        // elseif (Arr::exists($data_apartment, 'sponsor')) $apartment->sponsors()->sync($data_apartment['sponsor']);
 
         if (Arr::exists($data_apartment, 'image')) {
 
