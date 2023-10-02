@@ -146,25 +146,6 @@
                 </h6>
             @enderror
         </div>
-        {{-- sponsors --}}
-        <div class="col-8 py-2">
-            <h5>Sponsor :</h5>
-            {{-- nb --}}
-            @foreach ($sponsors as $sponsor)
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
-                    <input
-                        class="form-check-input @error('sponsor') is-invalid @elseif(old('sponsor')) is-valid @enderror"
-                        type="radio" @if (in_array($sponsor->id, old('sponsor', $apartment_sponsor_ids ?? []))) checked @endif
-                        id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}" name="sponsor[]">
-                </div>
-            @endforeach
-            @error('sponsor')
-                <h6 class="text-start py-2 text-danger">
-                    {{ $message }}
-                </h6>
-            @enderror
-        </div>
         <!--Visibility-->
         <div class="col-6 py-2">
             <div class="form-check">
@@ -180,8 +161,6 @@
                 </h6>
             @enderror
         </div>
-        {{-- @dd($apartment_sponsor_ids) --}}
-
     </div>
     <button type="submit" class="btn btn-success">
         Save
