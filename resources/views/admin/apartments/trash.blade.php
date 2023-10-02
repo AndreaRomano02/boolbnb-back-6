@@ -1,20 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Cestino')
+@section('title', 'Archive')
 
 @section('content-class', 'container my-5')
 @section('content')
-    <h1>Cestino</h1>
+    <h1>Archivio</h1>
     <div class="d-flex justify-content-between  my-4">
         <a class="btn btn-outline-secondary" href="{{ route('admin.apartments.index') }}">Torna all'elenco</a>
-
-        {{-- # Elimina Tutti --}}
-        <form action="{{ route('admin.apartments.dropAll') }}" method="POST">
-            @csrf
-            @method('DELETE')
-
-            <button class="btn btn-danger"><i class="fas fa-trash me-2"></i>Svuota cestino</button>
-        </form>
     </div>
     <section class="row row-cols-3">
         @if (count($apartments))
@@ -38,13 +30,6 @@
                                     <button class="btn btn-sm btn-success">Ripristina</button>
                                 </form>
 
-                                {{-- # Elimina --}}
-                                <form action="{{ route('admin.apartments.drop', $apartment->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button class="btn btn-sm btn-danger">Elimina</button>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -52,7 +37,7 @@
             @endforeach
         @else
             <div class="container text-center my-5">
-                <h1>Cestino Vuoto</h1>
+                <h1>Archivio Vuoto</h1>
             </div>
         @endif
     </section>

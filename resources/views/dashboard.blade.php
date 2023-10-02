@@ -49,7 +49,6 @@
                         </a>
                     </div>
 
-
                 </div>
                 <div class="card my-3">
 
@@ -58,10 +57,10 @@
                             <div class="d-flex align-items-cente justify-content-start">
 
                                 <span class="material-symbols-outlined me-2">
-                                    delete
+                                    archive
                                 </span>
                                 <h6 class="pt-1 mb-0">
-                                    Vai al cestino
+                                    Vai all'archivio
                                 </h6>
                             </div>
                         </a>
