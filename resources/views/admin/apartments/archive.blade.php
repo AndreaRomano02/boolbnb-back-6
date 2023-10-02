@@ -1,8 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('title', 'Archive')
 
-@section('content-class', 'container my-5')
 @section('content')
     <h1>Archivio</h1>
     <div class="d-flex justify-content-between  my-4">

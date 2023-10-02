@@ -1,12 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
-@section('content-class', 'container')
 @section('content')
-    <header class="d-flex justify-content-between  my-5">
-        <a href="{{ route('admin.apartments.trash') }}" class="btn btn-secondary">vai all'archivio</a>
-        <a href="{{ route('admin.apartments.create') }}" class="btn btn-success">Aggiungi un appartamento</a>
-    </header>
-    <div class="row row-cols-4 g-4 my-5">
+    <div class="row row-cols-3 g-4 my-5">
         @foreach ($apartments as $apartment)
             <div class="col">
 
