@@ -11,7 +11,11 @@
             <div class="col">
 
                 <div class="card h-100">
-                    {{-- <img src="..." class="card-img-top" alt="..."> --}}
+                    @if (!$apartment->is_visible)
+                        <div class="card-header">
+                            <h3 class="text-danger">NON PUBBLICATO</h3>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <h3 class="card-title mb-3">{{ $apartment->title }}</h3>
                         <div class="d-flex justify-content-between">

@@ -62,7 +62,7 @@ class ApartmentController extends Controller
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
                 'square_meters' => 'nullable|integer',
-                'is_visible' => 'required|boolean',
+                'is_visible' => 'nullable|boolean',
                 'services' => 'required|exists:services,id',
             ],
             [
@@ -78,7 +78,6 @@ class ApartmentController extends Controller
                 'rooms.integer' => 'Valore inserito non numerico',
                 'bathrooms.integer' => 'Valore inserito non numerico',
                 'square_meters.integer' => 'Valore inserito non numerico',
-                'is_visible.required' => 'La disponibilità è obbligatoria',
                 'is_visible.boolean' => 'Valore inserito non valido',
                 'services.required' => 'Almeno un servizio è obbligatorio',
                 'services.exists' => 'Il servizio scelto non esiste',
@@ -104,8 +103,8 @@ class ApartmentController extends Controller
         $apartment->beds = ($data_apartment['beds']);
         $apartment->bathrooms = ($data_apartment['bathrooms']);
         $apartment->square_meters = ($data_apartment['square_meters']);
-        $apartment->is_visible = ($data_apartment['is_visible']);
-
+        if (isset($apartment->is_visible)) $apartment->is_visible = ($data_apartment['is_visible']);
+        else $apartment->is_visible = false;
 
         $apartment->save();
 
@@ -164,7 +163,6 @@ class ApartmentController extends Controller
     public function update(Request $request, string $id)
     {
         $data_apartment = $request->all();
-        // dd($data_apartment);
         $request->validate(
             [
                 'user_id' => 'required|exists:users,id',
@@ -178,7 +176,7 @@ class ApartmentController extends Controller
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
                 'square_meters' => 'nullable|integer',
-                'is_visible' => 'required|boolean',
+                'is_visible' => 'nullable|boolean',
                 'services' => 'required|exists:services,id',
             ],
             [
@@ -194,7 +192,6 @@ class ApartmentController extends Controller
                 'rooms.integer' => 'Valore inserito non numerico',
                 'bathrooms.integer' => 'Valore inserito non numerico',
                 'square_meters.integer' => 'Valore inserito non numerico',
-                'is_visible.required' => 'La disponibilità è obbligatoria',
                 'is_visible.boolean' => 'Valore inserito non valido',
                 'services.require' => 'Almeno un servizio di è obbligatorio',
                 'services.exists' => 'Il servizio scelto non esiste',
@@ -211,11 +208,14 @@ class ApartmentController extends Controller
         $data = json_decode($response->getBody(), true);
         $apartment->latitude = $data['results'][0]['position']['lat'];
         $apartment->longitude = $data['results'][0]['position']['lon'];
+        if (isset($data_apartment['is_visible'])) $apartment->is_visible = ($data_apartment['is_visible']);
+        else $apartment->is_visible = false;
 
         $apartment->update($data_apartment);
 
         if (!Arr::exists($data_apartment, 'services') && count($apartment->services)) $apartment->services()->detach();
         elseif (Arr::exists($data_apartment, 'services')) $apartment->services()->sync($data_apartment['services']);
+
 
         // if (!Arr::exists($data_apartment, 'sponsor') && count($apartment->sponsors)) $apartment->sponsors()->detach();
         // elseif (Arr::exists($data_apartment, 'sponsor')) $apartment->sponsors()->sync($data_apartment['sponsor']);
