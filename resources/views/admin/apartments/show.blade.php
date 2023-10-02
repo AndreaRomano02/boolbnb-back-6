@@ -11,6 +11,9 @@
                     <div class="col-6">
                         <div class="row">
                             <div class="col-10">
+                                @if (!$apartment->is_visible)
+                                    <h3 class="text-danger">NON PUBBLICATO</h3>
+                                @endif
                                 <div>
                                     @if (count($apartment->images))
                                         <img class="card-img-top"
@@ -40,6 +43,10 @@
 
         <div class="d-flex gap-4 justify-content-center  align-items-center">
             <a href="{{ route('admin.apartments.index') }}" class="btn btn-success">Torna indietro</a>
+
+            {{-- # EDIT --}}
+            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-warning"><i
+                    class="fas fa-pencil"></i> Modifica</a>
             {{-- # DELETE --}}
             @if (!$apartment->trashed())
                 <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
