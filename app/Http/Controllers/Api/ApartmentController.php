@@ -20,41 +20,44 @@ class ApartmentController extends Controller
     {
         // dd($request);
         $data = $request->all();
-        $city = $data['city'];
+        $city = strtolower($data['city']);
         $range = $data['range'];
-        // dd($data['city']);
-        $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
-        $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
 
-        $client = new Client(['verify' => false]);
-        $response = $client->get($query);
-        $new_data = json_decode($response->getBody(), true);
-
-        // dd($new_data);
-        $userlatitude = $new_data['results'][0]['position']['lat'];
-        $userlongitude = $new_data['results'][0]['position']['lon'];
-
-
-
-        // $rangequery = 'https://api.tomtom.com/routing/1/calculateReachableRange/' . $userlatitude . '%2C' . $userlongitude . '/json?energyBudgetInkWh=43&report=effectiveSettings&avoid=unpavedRoads&vehicleEngineType=electric&constantSpeedConsumptionInkWhPerHundredkm=50%2C8.2%3A130%2C21.3&key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
-        // $client = new Client(['verify' => false]);
-        // $response = $client->get($rangequery);
-        // $range_data = json_decode($response->getBody(), true);
-        // // dd($range_data['reachableRange']['center']);
-
-        // $rangelat = $range_data['reachableRange']['center']['latitude'];
-        // $rangelon = $range_data['reachableRange']['center']['longitude'];
-
-        $apartments = Apartment::where('address', 'LIKE', "%$city")->get();
-        // dd($apartments);
-        // dd($apartments);
+        $apartments = null;
         $apartments_filtered = [];
+        $userlongitude = null;
+        $userlatitude = null;
+
+        if (!strlen($city) || !$city) {
+            $apartments = Apartment::all();
+        }
+
+        if (strlen($city)) {
+            $apartments = Apartment::where('address', 'LIKE', "%$city")->orWhere('address', 'LIKE', "$city%")->orWhere('address', 'LIKE', "%$city%")->get();
+            // dd($apartments);
+            if (isset($data['is_present'])) {
+
+                $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+                $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
+
+                $client = new Client(['verify' => false]);
+                $response = $client->get($query);
+                $new_data = json_decode($response->getBody(), true);
+
+                // dd($new_data);
+                $userlatitude = $new_data['results'][0]['position']['lat'];
+                $userlongitude = $new_data['results'][0]['position']['lon'];
+            }
+        }
 
         foreach ($apartments as $apartment) {
+
             $distancequery = 'https://api.tomtom.com/routing/1/calculateRoute/' . $userlatitude . '%2C' . $userlongitude . '%3A' . $apartment->latitude . '%2C' . $apartment->longitude . '/json?key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
             $client = new Client(['verify' => false]);
             $response = $client->get($distancequery);
             $distance_data = json_decode($response->getBody(), true);
+
+
             $distance = $distance_data['routes'][0]['summary']['lengthInMeters'] / 1000;
             $distance_rounded = round($distance);
             if ($distance_rounded <= $range) {
@@ -62,17 +65,26 @@ class ApartmentController extends Controller
             }
         }
 
-        // dd($apartments_filtered);
-
-        // dd($distance_data['routes'][0]['summary']['lengthInMeters']);
-
-
-
-
-
-
         return response()->json($apartments_filtered);
 
+        // dd($data['city']);
+
+        // $apartments_filtered = [];
+        // dd($apartments);
+        // dd(strlen($city));
+        // foreach ($apartments as $apartment) {
+
+        //     $address_new = strtolower($apartment->address);
+        //     $address_explode = explode(' ', $address_new);
+        // dd($address_explode);
+        // dd($address_new);
+        //     if (in_array($city, $address_explode)) {
+        //         $apartments_filtered[] = $apartment;
+        //     }
+        // }
+
+        // dd(count($filtered));
+        // dd($filtered);
 
         // $title = $request['title'] ?? '';
 
