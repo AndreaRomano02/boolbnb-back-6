@@ -171,5 +171,4 @@
 @section('scripts')
     @Vite('resources/js/tomtom.js')
     @Vite('resources/js/image-preview.js')
-    @Vite('resources/js/coordinate-preview.js')
 @endsection
