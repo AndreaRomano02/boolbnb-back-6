@@ -20,76 +20,53 @@ class ApartmentController extends Controller
     {
         // dd($request);
         $data = $request->all();
-        $city = strtolower($data['city']);
-        $range = $data['range'];
+        $city = $data['city'];
+        $range = $data['range'] ?? 20;
 
         $apartments = null;
         $apartments_filtered = [];
         $userlongitude = null;
         $userlatitude = null;
 
-        if (!strlen($city) || !$city) {
+        if (!strlen($city)) {
             $apartments = Apartment::all();
+            return response()->json($apartments);
         }
+
 
         if (strlen($city)) {
-            $apartments = Apartment::where('address', 'LIKE', "%$city")->orWhere('address', 'LIKE', "$city%")->orWhere('address', 'LIKE', "%$city%")->get();
+
+            $apartments = Apartment::all();
             // dd($apartments);
-            if (isset($data['is_present'])) {
+            $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
 
-                $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
-                $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
+            $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
 
-                $client = new Client(['verify' => false]);
-                $response = $client->get($query);
-                $new_data = json_decode($response->getBody(), true);
-
-                // dd($new_data);
-                $userlatitude = $new_data['results'][0]['position']['lat'];
-                $userlongitude = $new_data['results'][0]['position']['lon'];
-            }
-        }
-
-        foreach ($apartments as $apartment) {
-
-            $distancequery = 'https://api.tomtom.com/routing/1/calculateRoute/' . $userlatitude . '%2C' . $userlongitude . '%3A' . $apartment->latitude . '%2C' . $apartment->longitude . '/json?key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
             $client = new Client(['verify' => false]);
-            $response = $client->get($distancequery);
-            $distance_data = json_decode($response->getBody(), true);
+            $response = $client->get($query);
+            $new_data = json_decode($response->getBody(), true);
+
+            $userlatitude = $new_data['results'][0]['position']['lat'];
+            $userlongitude = $new_data['results'][0]['position']['lon'];
+            foreach ($apartments as $apartment) {
+
+                $distancequery = 'https://api.tomtom.com/routing/1/calculateRoute/' . $userlatitude . '%2C' . $userlongitude . '%3A' . $apartment->latitude . '%2C' . $apartment->longitude . '/json?key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+                $client = new Client(['verify' => false]);
+                $response = $client->get($distancequery);
+                $distance_data = json_decode($response->getBody(), true);
 
 
-            $distance = $distance_data['routes'][0]['summary']['lengthInMeters'] / 1000;
-            $distance_rounded = round($distance);
-            if ($distance_rounded <= $range) {
-                $apartments_filtered[] = $apartment;
+                $distance = $distance_data['routes'][0]['summary']['lengthInMeters'] / 1000;
+                $distance_rounded = round($distance, 1);
+                // dd($distance_rounded);
+                if ($distance_rounded <= $range) {
+                    $apartment['distance_center'] = $distance_rounded;
+                    $apartments_filtered[] = $apartment;
+                }
             }
+            return response()->json($apartments_filtered);
         }
 
-        return response()->json($apartments_filtered);
-
-        // dd($data['city']);
-
-        // $apartments_filtered = [];
-        // dd($apartments);
-        // dd(strlen($city));
-        // foreach ($apartments as $apartment) {
-
-        //     $address_new = strtolower($apartment->address);
-        //     $address_explode = explode(' ', $address_new);
-        // dd($address_explode);
-        // dd($address_new);
-        //     if (in_array($city, $address_explode)) {
-        //         $apartments_filtered[] = $apartment;
-        //     }
-        // }
-
-        // dd(count($filtered));
-        // dd($filtered);
-
-        // $title = $request['title'] ?? '';
-
-        // if (strlen($title)) $apartments = Apartment::where('title', 'LIKE', "%$title%")->with('messages', 'services', 'sponsors', 'visits', 'images')->get();
-        // else $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
 
         // if (!$apartments) return response(null, 404);
         // return response()->json($apartments);
