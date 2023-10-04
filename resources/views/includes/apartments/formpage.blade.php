@@ -36,7 +36,7 @@
             <input type="text"
                 class="form-control @error('address') is-invalid @elseif(old('address')) is-valid @enderror"
                 id="address" placeholder="Es: Via tal de tali 11 00134 Roma" name="address"
-                value="{{ old('title', $apartment->address ?? '') }}">
+                value="{{ old('address', $apartment->address ?? '') }}">
             @error('address')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -77,9 +77,20 @@
             <img src="https://marcolanci.it/utils/placeholder.jpg" alt="preview-apartment" id="image-preview"
                 style="width: 150px;">
         </div>
+        <div class="col-12 py-2">
+            <label for="price" class="form-label">Prezzo a notte :</label>
+            <input type="number"
+                class="form-control @error('price') is-invalid @elseif(old('price')) is-valid @enderror"
+                id="price" placeholder="Es: 44" name="price" value="{{ old('price', $apartment->price ?? '') }}">
+            @error('price')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
         {{-- beds --}}
         <div class="col-6 py-2">
-            <label for="beds" class="form-label">Numero di posti letto* :</label>
+            <label for="beds" class="form-label">Numero di letti* :</label>
             <input type="number"
                 class="form-control @error('beds') is-invalid @elseif(old('beds')) is-valid @enderror"
                 id="beds" placeholder="Es: 4" name="beds" value="{{ old('beds', $apartment->beds ?? '') }}">
@@ -91,7 +102,7 @@
         </div>
         {{-- rooms --}}
         <div class="col-6 py-2">
-            <label for="rooms" class="form-label">Numero di letti :</label>
+            <label for="rooms" class="form-label">Numero stanze :</label>
             <input type="number"
                 class="form-control @error('rooms') is-invalid @elseif(old('rooms')) is-valid @enderror"
                 id="rooms" placeholder="Es: 4" name="rooms" value="{{ old('rooms', $apartment->rooms ?? '') }}">

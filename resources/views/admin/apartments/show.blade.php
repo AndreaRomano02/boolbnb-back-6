@@ -25,7 +25,7 @@
                                         <div class=""><strong>Indirizzo: </strong>{{ $apartment->address }}</div>
                                         <div class=""><strong>Longitudine: </strong>{{ $apartment->longitude }}</div>
                                         <div class=""><strong>Latitudine: </strong>{{ $apartment->latitude }}</div>
-                                        <div class=""><strong>Immagine: </strong>{{ $apartment->image }}</div>
+                                        <div class=""><strong>Prezzo: </strong>{{ $apartment->price }} $/a notte</div>
                                         <div class=""><strong>Letti: </strong>{{ $apartment->beds }}</div>
                                         <div class=""><strong>Stanze: </strong>{{ $apartment->rooms }}</div>
                                         <div class=""><strong>Bagni: </strong>{{ $apartment->bathrooms }}</div>

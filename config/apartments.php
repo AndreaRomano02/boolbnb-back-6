@@ -4,7 +4,7 @@ return [
         'title' => 'Appartamento 1',
         'description' => 'Questo è un bellissimo appartamento nel centro della città.',
         'address' => 'Via Stendhal, 1, 00144 Roma ',
-        'image' => 'image',
+        'price' => '50',
         'beds' => '2',
         'rooms' => '5',
         'bathrooms' => '2',
@@ -16,7 +16,8 @@ return [
         'description' => 'Appartamento spazioso con una vista panoramica mozzafiato.',
         'address' => 'Via Lambro, 11, 20129 Milano',
         'beds' => '3',
-        'image' => 'image',
+        'price' => '48',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -27,7 +28,8 @@ return [
         'description' => 'Appartamento moderno e lussuoso vicino alla spiaggia.',
         'address' => 'Via Carlo Bussola, 155, 80143 Napoli',
         'beds' => '4',
-        'image' => 'image',
+        'price' => '32',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -38,7 +40,8 @@ return [
         'description' => 'Appartamento accogliente nel quartiere tranquillo.',
         'address' => 'Chiasso dei Baroncelli, P.za della Signoria, 3, 50122 Firenze',
         'beds' => '2',
-        'image' => 'image',
+        'price' => '98',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -49,7 +52,8 @@ return [
         'description' => 'Appartamento elegante nel cuore della città.',
         'address' => 'Piazza Solferino, 12, 10121 Torino',
         'beds' => '1',
-        'image' => 'image',
+        'price' => '69',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -60,7 +64,8 @@ return [
         'description' => 'Appartamento rustico immerso nella campagna.',
         'address' => 'Via San Mamolo, 2, 40136 Bologna',
         'beds' => '5',
-        'image' => 'image',
+        'price' => '37',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -71,7 +76,8 @@ return [
         'description' => 'Appartamento moderno con piscina privata.',
         'address' => 'Corso Sardegna, 165, 16142 Genova',
         'beds' => '3',
-        'image' => 'image',
+        'price' => '47',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -82,7 +88,8 @@ return [
         'description' => 'Appartamento affacciato sul mare con terrazza panoramica.',
         'address' => 'Piazzetta dei Bianchi, 90133 Palermo',
         'beds' => '2',
-        'image' => 'image',
+        'price' => '30',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -93,7 +100,8 @@ return [
         'description' => 'Appartamento accogliente vicino alle montagne.',
         'address' => 'Calle Crosera, 3820, 30122 Venezia',
         'beds' => '4',
-        'image' => 'image',
+        'price' => '44',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
@@ -104,7 +112,8 @@ return [
         'description' => 'Appartamento spazioso con vista sulla città.',
         'address' => 'Via Roveggia, 27, 37135 Verona',
         'beds' => '3',
-        'image' => 'image',
+        'price' => '55',
+
         'rooms' => '5',
         'bathrooms' => '2',
         'square_meters' => '200',
