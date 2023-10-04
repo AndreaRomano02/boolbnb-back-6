@@ -21,6 +21,22 @@ class ApartmentController extends Controller
     {
         // dd($request);
         $data = $request->all();
+        $request->validate(
+            [
+                'city' => 'nullable|string',
+                'range' => 'nullable|integer',
+                'beds' => 'nullable|integer',
+                'rooms' => 'nullable|integer',
+                'services' => 'nullable|exists:users,id',
+            ],
+            [
+                'city.string' => 'Elemento inserito non conforme',
+                'range.integer' => 'L\'e lemento inserito non è un numero',
+                'beds.integer' => 'L\'e lemento inserito non è un numero',
+                'rooms.integer' => 'L\'e lemento inserito non è un numero',
+                'services.exists' => 'Il servizio non esiste',
+            ]
+        );
         $city = $data['city'] ?? null;
         $range = $data['range'] ?? 20;
         $beds = $data['beds'] ?? null;
@@ -40,7 +56,7 @@ class ApartmentController extends Controller
 
         if (strlen($city)) {
 
-            $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();;
+            $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
             // dd($apartments[0]->services);
             $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
 
