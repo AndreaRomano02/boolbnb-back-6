@@ -25,11 +25,12 @@ class ApartmentController extends Controller
         $range = $data['range'] ?? 20;
         $beds = $data['beds'] ?? null;
         $rooms = $data['rooms'] ?? null;
-        $services = $data['services'] ?? [];
+        $services = $data['services'] ?? null;
         $apartments = null;
         $apartments_filtered = [];
         $userlongitude = null;
         $userlatitude = null;
+        // dd($data);
 
         if (!strlen($city)) {
             $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
@@ -40,7 +41,7 @@ class ApartmentController extends Controller
         if (strlen($city)) {
 
             $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();;
-            // dd($apartments);
+            // dd($apartments[0]->services);
             $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
 
             $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
@@ -71,8 +72,29 @@ class ApartmentController extends Controller
             if ($beds) {
                 $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($beds) {
                     // dd($beds);
-                    return $element->beds == $beds;
+                    return $element->beds <= $beds;
                 });
+            }
+
+            if ($rooms) {
+                $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($rooms) {
+                    // dd($beds);
+                    return $element->rooms <= $rooms;
+                });
+            }
+            // dd($services);
+            if ($services) {
+
+                $apartments_filtered  = array_filter($apartments_filtered, function ($element) use ($services) {
+                    foreach ($element->services as $service) {
+                        foreach ($services as $label) {
+
+                            return $service->id == $label;
+                        }
+                    }
+                });
+
+                // dd($apartments_filtered);
             }
 
 
