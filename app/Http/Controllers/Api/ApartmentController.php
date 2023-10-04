@@ -29,14 +29,14 @@ class ApartmentController extends Controller
         $userlatitude = null;
 
         if (!strlen($city)) {
-            $apartments = Apartment::all();
+            $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
             return response()->json($apartments);
         }
 
 
         if (strlen($city)) {
 
-            $apartments = Apartment::all();
+            $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();;
             // dd($apartments);
             $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
 
