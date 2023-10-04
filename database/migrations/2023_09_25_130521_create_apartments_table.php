@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->string('image')->nullable();
+            $table->decimal('price', 4, 2)->nullable();
             $table->smallInteger('beds');
             $table->smallInteger('rooms')->nullable();
             $table->smallInteger('bathrooms')->nullable();

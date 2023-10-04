@@ -58,6 +58,7 @@ class ApartmentController extends Controller
                 'longitude' => 'nullable|string',
                 'latitude' => 'nullable|string',
                 'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg',
+                'price' => 'nullable|integer',
                 'beds' => 'required|integer',
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
@@ -76,6 +77,7 @@ class ApartmentController extends Controller
                 'beds.required' => 'Il numero di posti letto è obbligatorio',
                 'beds.integer' => 'Valore inserito non numerico',
                 'rooms.integer' => 'Valore inserito non numerico',
+                'price.integer' => 'Valore inserito non numerico',
                 'bathrooms.integer' => 'Valore inserito non numerico',
                 'square_meters.integer' => 'Valore inserito non numerico',
                 'is_visible.boolean' => 'Valore inserito non valido',
@@ -102,6 +104,7 @@ class ApartmentController extends Controller
         $apartment->rooms = ($data_apartment['rooms']);
         $apartment->beds = ($data_apartment['beds']);
         $apartment->bathrooms = ($data_apartment['bathrooms']);
+        $apartment->price = ($data_apartment['price']);
         $apartment->square_meters = ($data_apartment['square_meters']);
         if (isset($apartment->is_visible)) $apartment->is_visible = ($data_apartment['is_visible']);
         else $apartment->is_visible = false;
@@ -172,6 +175,8 @@ class ApartmentController extends Controller
                 'longitude' => 'nullable|string',
                 'latitude' => 'nullable|string',
                 'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,svg',
+                'price' => 'nullable|integer',
+
                 'beds' => 'required|integer',
                 'rooms' => 'nullable|integer',
                 'bathrooms' => 'nullable|integer',
@@ -191,6 +196,8 @@ class ApartmentController extends Controller
                 'beds.integer' => 'Valore inserito non numerico',
                 'rooms.integer' => 'Valore inserito non numerico',
                 'bathrooms.integer' => 'Valore inserito non numerico',
+                'price.integer' => 'Valore inserito non numerico',
+
                 'square_meters.integer' => 'Valore inserito non numerico',
                 'is_visible.boolean' => 'Valore inserito non valido',
                 'services.require' => 'Almeno un servizio di è obbligatorio',

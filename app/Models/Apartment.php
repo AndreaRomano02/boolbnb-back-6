@@ -18,6 +18,7 @@ class Apartment extends Model
         'address',
         'longitude',
         'latitude',
+        'price',
         'beds',
         'rooms',
         'bathrooms',
