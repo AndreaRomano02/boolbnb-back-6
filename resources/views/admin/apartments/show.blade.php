@@ -27,7 +27,7 @@
                                         <div class=""><strong>Latitudine: </strong>{{ $apartment->latitude }}</div>
                                         <div class=""><strong>Immagine: </strong>{{ $apartment->image }}</div>
                                         <div class=""><strong>Letti: </strong>{{ $apartment->beds }}</div>
-                                        <div class=""><strong>Stanze: </strong>{{ $apartment->room }}</div>
+                                        <div class=""><strong>Stanze: </strong>{{ $apartment->rooms }}</div>
                                         <div class=""><strong>Bagni: </strong>{{ $apartment->bathrooms }}</div>
                                         <div class=""><strong>Metri quadrati: </strong>{{ $apartment->square_meters }}
                                         </div>
