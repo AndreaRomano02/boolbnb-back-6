@@ -20,7 +20,7 @@ class ApartmentController extends Controller
     {
         // dd($request);
         $data = $request->all();
-        $city = $data['city'];
+        $city = $data['city'] ?? null;
         $range = $data['range'] ?? 20;
 
         $apartments = null;
