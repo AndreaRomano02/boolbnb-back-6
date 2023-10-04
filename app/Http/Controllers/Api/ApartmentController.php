@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use GuzzleHttp\client;
+use Symfony\Component\Finder\Glob;
 
 class ApartmentController extends Controller
 {
@@ -22,7 +23,9 @@ class ApartmentController extends Controller
         $data = $request->all();
         $city = $data['city'] ?? null;
         $range = $data['range'] ?? 20;
-
+        $beds = $data['beds'] ?? null;
+        $rooms = $data['rooms'] ?? null;
+        $services = $data['services'] ?? [];
         $apartments = null;
         $apartments_filtered = [];
         $userlongitude = null;
@@ -64,6 +67,15 @@ class ApartmentController extends Controller
                     $apartments_filtered[] = $apartment;
                 }
             }
+
+            if ($beds) {
+                $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($beds) {
+                    // dd($beds);
+                    return $element->beds == $beds;
+                });
+            }
+
+
             return response()->json($apartments_filtered);
         }
 
