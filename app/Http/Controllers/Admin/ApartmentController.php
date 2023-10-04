@@ -142,7 +142,9 @@ class ApartmentController extends Controller
     public function show(String $id)
     {
         $user = Auth::user();
-        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
+        if (!Apartment::find($id)) abort(404);
+        else if (!Auth::user() || !$apartment) abort(403);
         return view('admin.apartments.show', compact('apartment'));
     }
 
@@ -152,7 +154,9 @@ class ApartmentController extends Controller
     public function edit(string $id)
     {
         $user = Auth::user();
-        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->findOrFail($id);
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
+        if (!Apartment::find($id)) abort(404);
+        else if (!Auth::user() || !$apartment) abort(403);
         $services = Service::all();
         $sponsors = Sponsor::all();
         $apartment_service_ids = $apartment->services->pluck('id')->toArray();
