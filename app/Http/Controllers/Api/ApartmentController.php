@@ -111,7 +111,7 @@ class ApartmentController extends Controller
                 //             }
                 //         });
                 //     }
-                }
+                // }
 
 
                 // dd($apartments_filtered);
