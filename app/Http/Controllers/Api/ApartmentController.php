@@ -53,6 +53,10 @@ class ApartmentController extends Controller
             $apartments->where('beds', $beds);
         }
 
+        if (strlen($rooms)) {
+            $apartments->where('rooms', $rooms);
+        }
+
         if (!empty($services)) {
 
             $apartments->whereHas('services', function ($query) use ($services) {
