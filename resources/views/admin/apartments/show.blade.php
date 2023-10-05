@@ -79,7 +79,8 @@
                                     @if (!$apartment->trashed())
                                         <form class="destroy-form"
                                             action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
-                                            data-title="{{ $apartment->title }}">
+                                            data-title="{{ $apartment->title }}" data-bs-toggle="modal"
+                                            data-bs-target="#modal">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger"><i class="fas fa-trash"></i> Sposta
@@ -105,4 +106,8 @@
         </div>
 
     </div>
+@endsection
+
+@section('scripts')
+    @Vite('resources/js/delete-confirmation.js')
 @endsection
