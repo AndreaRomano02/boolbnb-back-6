@@ -42,19 +42,21 @@ class ApartmentController extends Controller
         $beds = $data['beds'] ?? null;
         $rooms = $data['rooms'] ?? null;
         $services = $data['services'] ?? null;
-        $apartments = null;
-        $apartments_filtered = [];
         $userlongitude = null;
         $userlatitude = null;
 
         $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images');
 
+        if (strlen($city)) {
+            $apartments->where('address', 'LIKE', "%$city")->orWhere('address', 'LIKE', "%$city%");
+        }
+
         if (strlen($beds)) {
-            $apartments->where('beds', $beds);
+            $apartments->where('beds', '<=', $beds);
         }
 
         if (strlen($rooms)) {
-            $apartments->where('rooms', $rooms);
+            $apartments->where('rooms', '<=', $rooms);
         }
 
         if (!empty($services)) {
@@ -63,82 +65,6 @@ class ApartmentController extends Controller
                 $query->whereIn('services.id', $services);
             });
         }
-
-
-        $apartments =  $apartments->get();
-
-        return response()->json($apartments);
-
-        // if ($beds) {
-        //     $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($beds) {
-        //         // dd($beds);
-        //         return $element->beds <= $beds;
-        //     });
-        // }
-
-        // if ($rooms) {
-        //     $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($rooms) {
-        //         // dd($beds);
-        //         return $element->rooms <= $rooms;
-        //     });
-        // }
-        // dd($services);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // if ($services) {
-        //     foreach ($apartments_filtered as $apartment) {
-        //         foreach ($apartment->services as $app) {
-        //             dd($app);
-        //             $service_app = $app->toArray();
-        //             $apartments_filtered  = array_filter($service_app, function ($element) use ($services) {
-        //                 foreach ($services as $service) {
-
-        //                     return $element->id == $service;
-        //                 }
-        //             });
-        //         }
-        //     }
-
-
-        //     // dd($apartments_filtered);
-        // }
-
-
-        // return response()->json($apartments_filtered);
 
         // $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
 
@@ -160,14 +86,15 @@ class ApartmentController extends Controller
 
         //     $distance = $distance_data['routes'][0]['summary']['lengthInMeters'] / 1000;
         //     $distance_rounded = round($distance, 1);
-        //     // dd($distance_rounded);
         //     if ($distance_rounded <= $range) {
         //         $apartment['distance_center'] = $distance_rounded;
         //         $apartments_filtered[] = $apartment;
         //     }
         // }
 
-        // if (!$apartments) return response(null, 404);
+        $apartments =  $apartments->get();
+
+        return response()->json($apartments);
     }
 
     /**
