@@ -75,6 +75,23 @@
                         </div>
                     </div>
 
+                    {{-- # Vai nei sponsor --}}
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <a href="{{ route('admin.sponsors.index') }}" class="btn btn-warning">
+                                <div class="d-flex align-items-cente justify-content-start">
+
+                                    <span class="material-symbols-outlined me-2">
+                                        star
+                                    </span>
+                                    <h6 class="mt-1 mb-0">
+                                        Sponsors
+                                    </h6>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
