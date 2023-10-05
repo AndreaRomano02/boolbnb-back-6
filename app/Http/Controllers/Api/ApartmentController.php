@@ -100,15 +100,19 @@ class ApartmentController extends Controller
             }
             // dd($services);
             if ($services) {
+                // foreach ($apartments_filtered as $apartment) {
+                //     foreach ($apartment->services as $app) {
+                //         dd($app);
+                //         $service_app = $app->toArray();
+                //         $apartments_filtered  = array_filter($service_app, function ($element) use ($services) {
+                //             foreach ($services as $service) {
 
-                $apartments_filtered  = array_filter($apartments_filtered, function ($element) use ($services) {
-                    foreach ($element->services as $service) {
-                        foreach ($services as $label) {
+                //                 return $element->id == $service;
+                //             }
+                //         });
+                //     }
+                // }
 
-                            return $service->id == $label;
-                        }
-                    }
-                });
 
                 // dd($apartments_filtered);
             }
