@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
@@ -19,7 +20,6 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request);
         $data = $request->all();
         $request->validate(
             [
@@ -27,7 +27,7 @@ class ApartmentController extends Controller
                 'range' => 'nullable|integer',
                 'beds' => 'nullable|integer',
                 'rooms' => 'nullable|integer',
-                'services' => 'nullable|exists:users,id',
+                'services' => 'nullable|exists:services,id',
             ],
             [
                 'city.string' => 'Elemento inserito non conforme',
@@ -46,84 +46,121 @@ class ApartmentController extends Controller
         $apartments_filtered = [];
         $userlongitude = null;
         $userlatitude = null;
-        // dd($data);
 
-        if (!strlen($city)) {
-            $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
-            return response()->json($apartments);
+        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images');
+
+
+        if (!empty($services)) {
+
+            $apartments->whereHas('services', function ($query) use ($services) {
+                $query->whereIn('services.id', $services);
+            });
         }
 
 
-        if (strlen($city)) {
+        $apartments =  $apartments->get();
 
-            $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->get();
-            // dd($apartments[0]->services);
-            $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+        return response()->json($apartments);
 
-            $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
+        // if ($beds) {
+        //     $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($beds) {
+        //         // dd($beds);
+        //         return $element->beds <= $beds;
+        //     });
+        // }
 
-            $client = new Client(['verify' => false]);
-            $response = $client->get($query);
-            $new_data = json_decode($response->getBody(), true);
-
-            $userlatitude = $new_data['results'][0]['position']['lat'];
-            $userlongitude = $new_data['results'][0]['position']['lon'];
-            foreach ($apartments as $apartment) {
-
-                $distancequery = 'https://api.tomtom.com/routing/1/calculateRoute/' . $userlatitude . '%2C' . $userlongitude . '%3A' . $apartment->latitude . '%2C' . $apartment->longitude . '/json?key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
-                $client = new Client(['verify' => false]);
-                $response = $client->get($distancequery);
-                $distance_data = json_decode($response->getBody(), true);
+        // if ($rooms) {
+        //     $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($rooms) {
+        //         // dd($beds);
+        //         return $element->rooms <= $rooms;
+        //     });
+        // }
+        // dd($services);
 
 
-                $distance = $distance_data['routes'][0]['summary']['lengthInMeters'] / 1000;
-                $distance_rounded = round($distance, 1);
-                // dd($distance_rounded);
-                if ($distance_rounded <= $range) {
-                    $apartment['distance_center'] = $distance_rounded;
-                    $apartments_filtered[] = $apartment;
-                }
-            }
-
-            if ($beds) {
-                $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($beds) {
-                    // dd($beds);
-                    return $element->beds <= $beds;
-                });
-            }
-
-            if ($rooms) {
-                $apartments_filtered = array_filter($apartments_filtered, function ($element) use ($rooms) {
-                    // dd($beds);
-                    return $element->rooms <= $rooms;
-                });
-            }
-            // dd($services);
-            if ($services) {
-                foreach ($apartments_filtered as $apartment) {
-                    foreach ($apartment->services as $app) {
-                        dd($app);
-                        $service_app = $app->toArray();
-                        $apartments_filtered  = array_filter($service_app, function ($element) use ($services) {
-                            foreach ($services as $service) {
-
-                                return $element->id == $service;
-                            }
-                        });
-                    }
-                }
 
 
-                // dd($apartments_filtered);
-            }
 
 
-            return response()->json($apartments_filtered);
-        }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // if ($services) {
+        //     foreach ($apartments_filtered as $apartment) {
+        //         foreach ($apartment->services as $app) {
+        //             dd($app);
+        //             $service_app = $app->toArray();
+        //             $apartments_filtered  = array_filter($service_app, function ($element) use ($services) {
+        //                 foreach ($services as $service) {
+
+        //                     return $element->id == $service;
+        //                 }
+        //             });
+        //         }
+        //     }
+
+
+        //     // dd($apartments_filtered);
+        // }
+
+
+        // return response()->json($apartments_filtered);
+
+        // $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+
+        // $query = 'https://api.tomtom.com/search/2/search/' . $city . '.json?' . $key;
+
+        // $client = new Client(['verify' => false]);
+        // $response = $client->get($query);
+        // $new_data = json_decode($response->getBody(), true);
+
+        // $userlatitude = $new_data['results'][0]['position']['lat'];
+        // $userlongitude = $new_data['results'][0]['position']['lon'];
+        // foreach ($apartments as $apartment) {
+
+        //     $distancequery = 'https://api.tomtom.com/routing/1/calculateRoute/' . $userlatitude . '%2C' . $userlongitude . '%3A' . $apartment->latitude . '%2C' . $apartment->longitude . '/json?key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
+        //     $client = new Client(['verify' => false]);
+        //     $response = $client->get($distancequery);
+        //     $distance_data = json_decode($response->getBody(), true);
+
+
+        //     $distance = $distance_data['routes'][0]['summary']['lengthInMeters'] / 1000;
+        //     $distance_rounded = round($distance, 1);
+        //     // dd($distance_rounded);
+        //     if ($distance_rounded <= $range) {
+        //         $apartment['distance_center'] = $distance_rounded;
+        //         $apartments_filtered[] = $apartment;
+        //     }
+        // }
 
         // if (!$apartments) return response(null, 404);
-        // return response()->json($apartments);
     }
 
     /**
