@@ -49,11 +49,11 @@ class ApartmentController extends Controller
         $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images');
 
         if (strlen($beds)) {
-            $apartments->where('beds', '<=', $beds);
+            $apartments->where('beds', '>=', $beds);
         }
 
         if (strlen($rooms)) {
-            $apartments->where('rooms', '<=', $rooms);
+            $apartments->where('rooms', '>=', $rooms);
         }
 
         if (!empty($services)) {
