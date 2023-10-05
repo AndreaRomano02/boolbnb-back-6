@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApartmentController as AdminApartmentController;
+use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Guest\ApartmentController as GuestApartmentController;
 use App\Http\Controllers\ApartmentController;
 use App\Http\Controllers\ProfileController;
@@ -54,8 +55,11 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::patch('apartments/{project}/restore', [AdminApartmentController::class, 'restore'])->name('apartments.restore');
     Route::delete('apartments/{project}/drop', [AdminApartmentController::class, 'drop'])->name('apartments.drop');
 
-    //# Resources
+    //# Resources apartment
     Route::resource('apartments', AdminApartmentController::class);
+
+    //# Resources sponsors
+    Route::resource('sponsors', SponsorController::class);
 });
 
 
