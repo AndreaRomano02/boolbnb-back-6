@@ -16,7 +16,7 @@
             <input type="text"
                 class="form-control @error('title') is-invalid @elseif(old('title')) is-valid @enderror"
                 id="title" placeholder="Es: Villa Flora" name="title"
-                value="{{ old('title', $apartment->title ?? '') }}">
+                value="{{ old('title', $apartment->title ?? '') }}" required>
             @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -25,7 +25,7 @@
         <div class="col-12 py-2">
             <label for="description" class="form-label">Descrizione* :</label>
             <textarea class="form-control @error('description') is-invalid @elseif(old('description')) is-valid @enderror"
-                id="description" placeholder="Inserisci la descrizione" name="description">{{ old('description', $apartment->description ?? '') }}</textarea>
+                id="description" placeholder="Inserisci la descrizione" name="description" required>{{ old('description', $apartment->description ?? '') }}</textarea>
             @error('description')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -36,7 +36,7 @@
             <input type="text"
                 class="form-control @error('address') is-invalid @elseif(old('address')) is-valid @enderror"
                 id="address" placeholder="Es: Via tal de tali 11 00134 Roma" name="address"
-                value="{{ old('address', $apartment->address ?? '') }}">
+                value="{{ old('address', $apartment->address ?? '') }}" required>
             @error('address')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -44,8 +44,8 @@
         {{-- coordinate latitude --}}
         <div class="col-3 py-2 my-4">
             <label for="latitude">Latitudine :</label>
-            <input @if ($apartment->latitude) value="{{ $apartment->latitude }}" @endif type="text"
-                id="latitude" disabled>
+            <input class="disabled" @if ($apartment->latitude) value="{{ $apartment->latitude }}" @endif
+                type="text" id="latitude" disabled>
         </div>
         {{-- coordinate longitude --}}
         <div class="col-3 py-2 my-4">
@@ -90,10 +90,11 @@
         </div>
         {{-- beds --}}
         <div class="col-6 py-2">
-            <label for="beds" class="form-label">Numero di letti* :</label>
+            <label for="beds" class="form-label">Numero di letti*:</label>
             <input type="number"
                 class="form-control @error('beds') is-invalid @elseif(old('beds')) is-valid @enderror"
-                id="beds" placeholder="Es: 4" name="beds" value="{{ old('beds', $apartment->beds ?? '') }}">
+                id="beds" placeholder="Es: 4" name="beds" value="{{ old('beds', $apartment->beds ?? '') }}"
+                required>
             @error('beds')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -102,9 +103,9 @@
         </div>
         {{-- rooms --}}
         <div class="col-6 py-2">
-            <label for="rooms" class="form-label">Numero stanze :</label>
+            <label for="rooms" class="form-label">Numero stanze*:</label>
             <input type="number"
-                class="form-control @error('rooms') is-invalid @elseif(old('rooms')) is-valid @enderror"
+                class="form-control @error('rooms') is-invalid @elseif(old('rooms')) is-valid @enderror "required
                 id="rooms" placeholder="Es: 4" name="rooms" value="{{ old('rooms', $apartment->rooms ?? '') }}">
             @error('rooms')
                 <div class="invalid-feedback">
@@ -114,9 +115,9 @@
         </div>
         {{-- bathrooms --}}
         <div class="col-6 py-2">
-            <label for="bathrooms" class="form-label">Stanze da bagno:</label>
+            <label for="bathrooms" class="form-label">Stanze da bagno*:</label>
             <input type="number"
-                class="form-control @error('bathrooms') is-invalid @elseif(old('bathrooms')) is-valid @enderror"
+                class="form-control @error('bathrooms') is-invalid @elseif(old('bathrooms')) is-valid @enderror "required
                 id="bathrooms" placeholder="Es: 4" name="bathrooms"
                 value="{{ old('bathrooms', $apartment->bathrooms ?? '') }}">
             @error('bathrooms')
@@ -163,8 +164,9 @@
                 <label class="form-check-label" for="visibility">Visibilità</label>
                 <input
                     class="form-check-input @error('is_visible') is-invalid @elseif(old('is_visible')) is-valid @enderror"
-                    type="checkbox" @if (old('is_visible', $apartment->is_visible ?? [])) checked @endif id="visibility"
-                    value="{{ old('is_visible', '1') }}" name="is_visible">
+                    type="checkbox" @if (old('is_visible', $apartment->is_visible ?? '')) checked @endif id="visibility"
+                    value="@if (old('is_visible')) 1 @else 1 @endif" name="is_visible">
+                {{-- {{ old('is_visible', '1') }} --}}
             </div>
             @error('is_visible')
                 <h6 class="text-start py-2 text-danger">
