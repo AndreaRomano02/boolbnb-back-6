@@ -47,7 +47,6 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-
         $data_apartment = $request->all();
         $request->validate(
             [
@@ -108,7 +107,7 @@ class ApartmentController extends Controller
         $apartment->bathrooms = ($data_apartment['bathrooms']);
         $apartment->price = ($data_apartment['price']);
         $apartment->square_meters = ($data_apartment['square_meters']);
-        if (isset($apartment->is_visible)) $apartment->is_visible = ($data_apartment['is_visible']);
+        if (isset($data_apartment['is_visible'])) $apartment->is_visible = ($data_apartment['is_visible']);
         else $apartment->is_visible = false;
 
         $apartment->save();
