@@ -144,7 +144,7 @@ class ApartmentController extends Controller
     {
         $user = Auth::user();
         $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
-        if (!Apartment::find($id)) abort(404);
+        if (!Apartment::withTrashed()->find($id)) abort(404);
         else if (!Auth::user() || !$apartment) abort(403);
         return view('admin.apartments.show', compact('apartment'));
     }

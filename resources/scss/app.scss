@@ -6,3 +6,9 @@ body{
     display: block;
 }
 
+.alert{
+    position: fixed;
+    z-index: 1;
+    left: 720px;
+    top: 47px;
+}

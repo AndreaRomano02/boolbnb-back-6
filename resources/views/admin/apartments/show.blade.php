@@ -56,11 +56,11 @@
                     <button class="btn btn-danger"><i class="fas fa-trash"></i> Sposta nell'archivio</button>
                 </form>
             @else
-                <form class="destroy-form" action="{{ route('admin.apartments.drop', $apartment->id) }}" method="POST"
+                <form class="destroy-form" action="{{ route('admin.apartments.restore', $apartment->id) }}" method="POST"
                     data-title="{{ $apartment->title }}">
                     @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Ellimina</button>
+                    @method('PATCH')
+                    <button class="btn btn-primary"><i class="fas fa-save"></i> Ripristina</button>
                 </form>
             @endif
         </div>
