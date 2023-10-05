@@ -1,10 +1,12 @@
 <div class="container my-4">
 
     @if ($apartment->id)
-        <form action="{{ route('admin.apartments.update', $apartment->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="form" action="{{ route('admin.apartments.update', $apartment->id) }}" method="POST"
+            enctype="multipart/form-data">
             @method('PUT')
         @else
-            <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
+            <form id="form" action="{{ route('admin.apartments.store') }}" method="POST"
+                enctype="multipart/form-data">
     @endif
     @csrf
     <div class="row">
@@ -40,6 +42,7 @@
             @error('address')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+            <small class="text-danger feedback-address"></small>
         </div>
         {{-- coordinate latitude --}}
         <div class="col-3 py-2 my-4">
