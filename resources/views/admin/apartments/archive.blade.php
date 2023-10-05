@@ -13,8 +13,10 @@
                 <div class="col">
                     <div class="card m-2">
                         <div class="card-body">
-                            <img v-if="apartment.images.length" class="card-img-top"
-                                src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                            @if (count($apartment->images))
+                                <img class="card-img-top"
+                                    src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
+                            @endif
                             <h5 class=" my-3 card-title">{{ $apartment->title }}</h5>
                             <div class="d-flex gap-3 align-items-center ">
                                 {{-- # SHOW --}}
@@ -23,7 +25,7 @@
                                     Vedi</a>
 
                                 {{-- # RIPRISTINA --}}
-                                <form method="POST" action="{{ route('admin.apartments.restore', $apartment) }}">
+                                <form method="POST" action="{{ route('admin.apartments.restore', $apartment->id) }}">
                                     @csrf
                                     @method('PATCH')
                                     <button class="btn btn-sm btn-success">Ripristina</button>

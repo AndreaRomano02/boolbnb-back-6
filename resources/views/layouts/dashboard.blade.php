@@ -5,19 +5,10 @@
 
 <body>
     <div id="app">
+        {{-- navbar --}}
         @include('includes/layout/navbar')
-
         {{-- # Alert  --}}
-
-        @if (session('message'))
-            <div class="container mt-5">
-                <div class="alert alert-{{ session('type') ? session('type') : 'info' }} alert-dismissible fade show"
-                    role="alert">
-                    <p>{{ session('message') }}</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
+        @include('includes/layout/alert')
 
         <div class="row g-0">
             <div class="col-3 columns-sx">
@@ -96,6 +87,10 @@
                 </div>
             </div>
         </div>
+
+        {{-- modal --}}
+        @include('includes/layout/modal')
+
     </div>
 </body>
 

@@ -5,26 +5,20 @@
 
 <body>
     <div id="app">
+        {{-- navbar --}}
         @include('includes/layout/navbar')
-
         {{-- # Alert  --}}
+        @include('includes/layout/alert')
 
-        @if (session('message'))
-            <div class="container mt-5">
-                <div class="alert alert-{{ session('type') ? session('type') : 'info' }} alert-dismissible fade show"
-                    role="alert">
-                    <p>{{ session('message') }}</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        @endif
 
         <main class="@yield('content-class')">
             @yield('content')
         </main>
     </div>
+
+
+    @yield('scripts')
 </body>
 
-@yield('scripts')
 
 </html>
