@@ -90,6 +90,7 @@ class ApartmentController extends Controller
                     $apartments_filtered[] = $apartment;
                 }
             }
+
             return response()->json($apartments_filtered);
         }
 
