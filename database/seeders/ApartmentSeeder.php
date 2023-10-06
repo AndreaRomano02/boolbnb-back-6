@@ -52,7 +52,7 @@ class ApartmentSeeder extends Seeder
 
             $new_apartment->services()->attach($apartments_services);
 
-            $apartments_sponsor = Arr::random($sponsors_ids);
+            $apartments_sponsor = '1';
 
             $new_apartment->sponsors()->attach($apartments_sponsor);
         }
