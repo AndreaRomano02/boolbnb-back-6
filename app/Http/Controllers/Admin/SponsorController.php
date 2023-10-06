@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Sponsor;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,11 +67,22 @@ class SponsorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        dd($request);
+        $data = $request->all();
+        // dd($data['sponsor_id']);
+        $sponsor = Sponsor::where('id', $data['sponsor_id'])->withTrashed()->find($data['sponsor_id']);
+        $mytime = Carbon::now()->timezone('Europe/Stockholm');
+        // $mytime->toDateTimeString();
+        $carbon_date = Carbon::parse($mytime);
+        $carbon_date->addHours($sponsor->duration);
 
-        $user = Auth::user();
-        $sponsors = Sponsor::all();
-        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
+        // dd($start, $end);
+        $apartment = Apartment::where('id', $data['apartment_id'])->withTrashed()->find($id);
+        // dd($sponsor->duration);
+        if (array_key_exists('sponsor_id', $data) && array_key_exists('apartment_id', $data)) {
+            $apartment->sponsors()->attach($data['sponsor_id'], ['start_date' =>   $mytime, 'end_date' => $carbon_date]);
+        }
+
+        return view('admin.apartments.show', compact('apartment'))->with('type', 'success')->with('message', 'Sponsor inserito con successo');
     }
 
     /**
@@ -78,5 +91,9 @@ class SponsorController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function payment()
+    {
     }
 }

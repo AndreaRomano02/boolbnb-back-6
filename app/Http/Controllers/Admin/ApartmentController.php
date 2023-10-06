@@ -130,10 +130,6 @@ class ApartmentController extends Controller
             $apartment->services()->attach($data_apartment['services']);
         }
 
-        // if (array_key_exists('sponsor', $data_apartment)) {
-        //     $apartment->sponsors()->attach($data_apartment['sponsor']);
-        // }
-
         return to_route('admin.apartments.show', compact('apartment'));
     }
 

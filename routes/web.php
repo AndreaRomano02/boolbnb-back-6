@@ -59,6 +59,8 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::resource('apartments', AdminApartmentController::class);
 
     //# Resources sponsors
+    Route::post('sponsors/payment', [SponsorController::class, 'payment'])->name('sponsors.payment');
+
     Route::resource('sponsors', SponsorController::class);
 });
 
