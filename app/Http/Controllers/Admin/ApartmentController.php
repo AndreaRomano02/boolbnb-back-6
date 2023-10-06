@@ -246,7 +246,7 @@ class ApartmentController extends Controller
             $imageModel->save();
         }
 
-        return to_route('admin.apartments.show', compact('apartment'));
+        return to_route('admin.apartments.show', compact('apartment'))->with('type', 'success')->with('message', 'Il appartamento è stato modificato con successo!');
     }
 
 
@@ -256,7 +256,7 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         $apartment->delete();
-        return to_route('admin.apartments.index')->with('type', 'success')->with('message', 'Il progetto è stato spostato nell\'arhcivio con successo!');
+        return to_route('admin.apartments.index')->with('type', 'success')->with('message', 'Il appartamento è stato spostato nell\'arhcivio con successo!');
     }
 
     public function archive()
@@ -269,6 +269,6 @@ class ApartmentController extends Controller
     {
         $apartment = Apartment::onlyTrashed()->findOrFail($id);
         $apartment->restore();
-        return to_route('admin.apartments.archive')->with('type', 'success')->with('message', 'Il progetto è stato ripristinato!');
+        return to_route('admin.apartments.archive')->with('type', 'success')->with('message', 'Il appartamento è stato ripristinato!');
     }
 }

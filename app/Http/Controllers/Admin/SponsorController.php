@@ -68,21 +68,32 @@ class SponsorController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->all();
-        // dd($data['sponsor_id']);
         $sponsor = Sponsor::where('id', $data['sponsor_id'])->withTrashed()->find($data['sponsor_id']);
         $mytime = Carbon::now()->timezone('Europe/Stockholm');
-        // $mytime->toDateTimeString();
         $carbon_date = Carbon::parse($mytime);
         $carbon_date->addHours($sponsor->duration);
 
-        // dd($start, $end);
-        $apartment = Apartment::where('id', $data['apartment_id'])->withTrashed()->find($id);
-        // dd($sponsor->duration);
+        $apartment = Apartment::with('sponsors')->where('id', $data['apartment_id'])->withTrashed()->find($id);
+        $current_date =  Carbon::now()->timezone('Europe/Stockholm');
+
+        if (count($apartment->sponsors)) {
+            $last_sponsor = $apartment->sponsors[count($apartment->sponsors) - 1]['pivot'];
+
+            if (strtotime($last_sponsor->end_date) > strtotime($current_date)) {
+                $end_date =   Carbon::parse($last_sponsor->end_date)->format('d-m-Y H:m:s');
+
+                return to_route('admin.apartments.show', compact('apartment'))
+                    ->with('type', 'danger')
+                    ->with('message', "Hai gia una sponsorizzazione in corso valida fino al $end_date");
+            }
+        }
+
+
         if (array_key_exists('sponsor_id', $data) && array_key_exists('apartment_id', $data)) {
             $apartment->sponsors()->attach($data['sponsor_id'], ['start_date' =>   $mytime, 'end_date' => $carbon_date]);
         }
 
-        return view('admin.apartments.show', compact('apartment'))->with('type', 'success')->with('message', 'Sponsor inserito con successo');
+        return to_route('admin.apartments.show', compact('apartment'))->with('type', 'success')->with('message', 'Sponsor inserito con successo');
     }
 
     /**
