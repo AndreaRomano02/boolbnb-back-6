@@ -1,21 +1,16 @@
 <?php return [
     [
-        'plan' => "Bronze",
-        'price' => '0',
-        'duration' => '0',
-    ],
-    [
-        'plan' => 'Silver',
+        'plan' => 'Bronze',
         'price' => '2.99',
         'duration' => '24',
     ],
     [
-        'plan' => 'Gold',
+        'plan' => 'Silver',
         'price' => '5.99',
         'duration' => '72',
     ],
     [
-        'plan' => 'Platinum',
+        'plan' => 'Gold',
         'price' => '9.99',
         'duration' => '144',
     ],

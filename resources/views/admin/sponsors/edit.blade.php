@@ -22,9 +22,9 @@
                     <div class="form-check form-check-inline">
                         <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
                         <input
-                            class="form-check-input  @error('sponsors') is-invalid @elseif(old('services')) is-valid @enderror"
-                            type="radio" @if (old('sponsors') ?? $sponsor->id == 1) checked @endif id="sponsor-{{ $sponsor->id }}"
-                            value="{{ $sponsor->id }}" name="sponsors">
+                            class="form-check-input  @error('sponsor_id') is-invalid @elseif(old('sponsor_id')) is-valid @enderror"
+                            type="radio" @if (old('sponsor_id') ?? $sponsor->id == 1) checked @endif id="sponsor-{{ $sponsor->id }}"
+                            value="{{ $sponsor->id }}" name="sponsor_id">
 
                     </div>
                 @endforeach

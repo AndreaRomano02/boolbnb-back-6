@@ -65,7 +65,11 @@ class SponsorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request);
+
+        $user = Auth::user();
+        $sponsors = Sponsor::all();
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
     }
 
     /**

@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('apartment_id')->constrained()->onDelete('cascade');
             $table->foreignId('sponsor_id')->constrained()->onDelete('cascade');
-            $table->boolean('is_active')->nullable();
+            $table->date('start_date');
+            $table->date('end_date');
         });
     }
 
