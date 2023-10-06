@@ -21,7 +21,6 @@ class ApartmentSeeder extends Seeder
     {
         $user_ids = User::pluck('id')->toArray();
         $services_ids = Service::pluck('id')->toArray();
-        $sponsors_ids = Sponsor::pluck('id')->toArray();
 
         $apartments = config('apartments');
         foreach ($apartments as $apartment) {
@@ -34,8 +33,6 @@ class ApartmentSeeder extends Seeder
             $client = new Client(['verify' => false]);
             $response = $client->get($query);
             $data = json_decode($response->getBody(), true);
-
-
 
             $new_apartment = new Apartment();
             $new_apartment->user_id = Arr::random($user_ids);
@@ -51,10 +48,6 @@ class ApartmentSeeder extends Seeder
             }
 
             $new_apartment->services()->attach($apartments_services);
-
-            $apartments_sponsor = '1';
-
-            $new_apartment->sponsors()->attach($apartments_sponsor);
         }
     }
 }
