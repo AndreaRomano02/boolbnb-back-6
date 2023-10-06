@@ -95,7 +95,8 @@
                                             <button class="btn btn-primary"><i class="fas fa-save"></i> Ripristina</button>
                                         </form>
                                     @endif
-                                    <a href="#" class="btn btn-secondary">Sponsorizza</a>
+                                    <a href="{{ route('admin.sponsors.edit', $apartment->id) }}"
+                                        class="btn btn-secondary">Sponsorizza</a>
                                 </div>
                             </div>
                         </div>

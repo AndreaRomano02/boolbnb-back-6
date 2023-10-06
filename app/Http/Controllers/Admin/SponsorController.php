@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SponsorController extends Controller
 {
@@ -21,7 +23,7 @@ class SponsorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -39,7 +41,9 @@ class SponsorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sponsor = Sponsor::where('id', $id)->withTrashed()->find($id);
+        if (!Sponsor::withTrashed()->find($id)) abort(404);
+        return view('admin.sponsors.show', compact('sponsor'));
     }
 
     /**
@@ -47,7 +51,13 @@ class SponsorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = Auth::user();
+        $sponsors = Sponsor::all();
+        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
+        if (!Apartment::find($id)) abort(404);
+        else if (!Auth::user() || !$apartment) abort(403);
+
+        return view('admin.sponsors.edit', compact('sponsors', 'user', 'apartment'));
     }
 
     /**

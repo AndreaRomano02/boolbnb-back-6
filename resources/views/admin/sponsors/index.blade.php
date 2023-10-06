@@ -34,10 +34,10 @@
                                 <strong>
                                     Durata del piano :
                                 </strong>
-                                {{ $sponsor->duration }} /ore
+                                {{ $sponsor->duration }} ore
                             @endif
                         </div>
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('admin.sponsors.show', $sponsor->id) }}" class="btn btn-primary">
                             <div class="d-flex align-items-center justify-content-between">
 
                                 <span class="me-2">
