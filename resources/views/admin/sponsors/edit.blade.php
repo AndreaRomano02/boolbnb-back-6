@@ -11,12 +11,10 @@
             @endif
         </div>
         <div class="col-6">
-            <form action="{{ route('admin.sponsors.update', $apartment->id) }}" method="POST">
-                @method('PUT')
+            <form action="{{ route('admin.sponsors.checkout', $apartment) }}" method="GET">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                 <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
-
 
                 @foreach ($sponsors as $sponsor)
                     <div class="form-check form-check-inline">
@@ -29,7 +27,7 @@
                     </div>
                 @endforeach
                 <button type="submit" class="btn btn-success">
-                    Save
+                    Acquista
                 </button>
             </form>
         </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApartmentController as AdminApartmentController;
+use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Guest\ApartmentController as GuestApartmentController;
 use App\Http\Controllers\ApartmentController;
@@ -59,6 +60,7 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::resource('apartments', AdminApartmentController::class);
 
     //# Resources sponsors
+    Route::get('sponsors/checkout/{apartment}', [SponsorController::class, 'checkout'])->name('sponsors.checkout');
     Route::post('sponsors/payment', [SponsorController::class, 'payment'])->name('sponsors.payment');
 
     Route::resource('sponsors', SponsorController::class);
