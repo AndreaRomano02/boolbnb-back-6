@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Models\Sponsor;
 use Carbon\Carbon;
+use \Braintree\Gateway;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class SponsorController extends Controller
 {
@@ -67,15 +69,51 @@ class SponsorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->all();
-        $sponsor = Sponsor::where('id', $data['sponsor_id'])->withTrashed()->find($data['sponsor_id']);
-        $mytime = Carbon::now()->timezone('Europe/Stockholm');
-        $carbon_date = Carbon::parse($mytime);
-        $carbon_date->addHours($sponsor->duration);
 
-        $apartment = Apartment::with('sponsors')->where('id', $data['apartment_id'])->withTrashed()->find($id);
+        //# Prendiamo tutto il necessario
+        if ($request) {
+            $data = $request->all();
+            $sponsor = Sponsor::where('id', $data['sponsor_id'])->withTrashed()->find($data['sponsor_id']);
+            $apartment = Apartment::with('sponsors')->where('id', $data['apartment_id'])->withTrashed()->find($id);
+
+            $mytime = Carbon::now()->timezone('Europe/Stockholm');
+            $carbon_date = Carbon::parse($mytime);
+            $carbon_date->addHours($sponsor->duration);
+        }
+
+        //# Diamo l'autorizzazione a Braintree
+        $gateway = new Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 'zkvj7pnw8fkt9cv8',
+            'publicKey' => 'tk7g4jvv9bdbfkxx',
+            'privateKey' => '583e36e45a30bcd00c4293a1e69a7286'
+        ]);
+
+        $result = $gateway->transaction()->sale([
+            'paymentMethodNonce' => $request->payment_method_nonce,
+            'amount' => $sponsor->price,
+        ]);
+
+        //# Se il pagamento è stato effetutato con successo
+        if ($result->success) {
+
+            //# Si fa l'attach degli sponsor nella tabella di mezzo apartment_sponsor
+            if (array_key_exists('sponsor_id', $data) && array_key_exists('apartment_id', $data)) {
+                $apartment->sponsors()->attach($data['sponsor_id'], ['start_date' =>   $mytime, 'end_date' => $carbon_date]);
+            }
+
+            return to_route('admin.apartments.show', compact('apartment'))->with('type', 'success')->with('message', 'Sponsor inserito con successo');
+        } else {
+            return to_route('admin.apartments.show', compact('apartment'))->with('type', 'danger')->with('message', 'Il pagamento NON è andato a buon fine');
+        }
+    }
+
+    public function checkout(Request $request, Apartment $apartment)
+    {
         $current_date =  Carbon::now()->timezone('Europe/Stockholm');
 
+
+        //# Controllo se ha gia una sponsorizzazione in corso
         if (count($apartment->sponsors)) {
             $last_sponsor = $apartment->sponsors[count($apartment->sponsors) - 1]['pivot'];
 
@@ -87,24 +125,6 @@ class SponsorController extends Controller
                     ->with('message', "Hai gia una sponsorizzazione in corso valida fino al $end_date");
             }
         }
-
-
-        if (array_key_exists('sponsor_id', $data) && array_key_exists('apartment_id', $data)) {
-            $apartment->sponsors()->attach($data['sponsor_id'], ['start_date' =>   $mytime, 'end_date' => $carbon_date]);
-        }
-
-        return to_route('admin.apartments.show', compact('apartment'))->with('type', 'success')->with('message', 'Sponsor inserito con successo');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-    public function payment()
-    {
+        return view('admin.sponsors.payment', compact('request'));
     }
 }
