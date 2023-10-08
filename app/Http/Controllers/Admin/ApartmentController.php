@@ -7,6 +7,7 @@ use App\Models\Apartment;
 use App\Models\Image;
 use App\Models\Service;
 use App\Models\Sponsor;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -138,11 +139,21 @@ class ApartmentController extends Controller
      */
     public function show(String $id)
     {
+
+
+        $current_date =  Carbon::now()->timezone('Europe/Stockholm');
+
         $user = Auth::user();
-        $apartment = Apartment::where('user_id', $user->id)->withTrashed()->find($id);
+        $apartment = Apartment::with('sponsors')->where('user_id', $user->id)->withTrashed()->find($id);
+
+
+        $last_sponsor = $apartment->sponsors[count($apartment->sponsors) - 1] ?? null;
+
+
+
         if (!Apartment::withTrashed()->find($id)) abort(404);
         else if (!Auth::user() || !$apartment) abort(403);
-        return view('admin.apartments.show', compact('apartment'));
+        return view('admin.apartments.show', compact('apartment', 'current_date', 'last_sponsor'));
     }
 
     /**
