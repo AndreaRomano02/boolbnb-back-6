@@ -10,8 +10,9 @@
                 <div class="row my-5">
                     <div class="col-6">
                         @if (!$apartment->is_visible)
-                            <h3 class="text-danger my-3">NON PUBBLICATO</h3>
+                            <h3 class="text-danger">NON PUBBLICATO</h3>
                         @endif
+                        <h2>{{ $apartment->title }}</h2>
                         @if (count($apartment->images))
                             <img class="card-img-top img-fluid"
                                 src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
@@ -63,6 +64,23 @@
                                 <div class="mb-2">
                                     <strong>Metri quadrati: </strong>
                                     {{ $apartment->square_meters }}mq
+                                </div>
+
+                                <div class="mb-2">
+
+                                    @if ($last_sponsor)
+                                        @if ($last_sponsor['pivot']->end_date < $current_date)
+                                            <strong>Sponsor: </strong>
+                                            Non hai nessun sponsor Attivo
+                                        @else
+                                            <strong>Sponsor: </strong>
+                                            {{ $last_sponsor->plan }}
+                                        @endif
+                                    @else
+                                        <strong>Sponsor: </strong>
+                                        Non hai nessun sponsor Attivo
+                                    @endif
+
                                 </div>
 
                             </div>

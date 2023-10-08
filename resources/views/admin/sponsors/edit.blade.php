@@ -15,17 +15,26 @@
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                 <input type="hidden" name="apartment_id" value="{{ $apartment->id }}">
+                <ul class="list-group list-group-flush">
 
-                @foreach ($sponsors as $sponsor)
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
-                        <input
-                            class="form-check-input  @error('sponsor_id') is-invalid @elseif(old('sponsor_id')) is-valid @enderror"
-                            type="radio" @if (old('sponsor_id') ?? $sponsor->id == 1) checked @endif id="sponsor-{{ $sponsor->id }}"
-                            value="{{ $sponsor->id }}" name="sponsor_id">
+                    @foreach ($sponsors as $sponsor)
+                        <li class="list-group-item">
 
-                    </div>
-                @endforeach
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label"
+                                    for="sponsor-{{ $sponsor->id }}">{{ $sponsor->plan }}</label>
+                                <input
+                                    class="form-check-input  @error('sponsor_id') is-invalid @elseif(old('sponsor_id')) is-valid @enderror"
+                                    type="radio" @if (old('sponsor_id') ?? $sponsor->id == 1) checked @endif
+                                    id="sponsor-{{ $sponsor->id }}" value="{{ $sponsor->id }}" name="sponsor_id">
+
+                                <span class="mx-3">Prezzo : {{ $sponsor->price }} $</span>
+                                <span>Durata : {{ $sponsor->duration }} ore</span>
+
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
                 <button type="submit" class="btn btn-success">
                     Acquista
                 </button>

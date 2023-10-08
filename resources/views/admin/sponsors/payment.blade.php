@@ -1,27 +1,43 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <form id="payment-form" action="{{ route('admin.sponsors.update', $request->apartment_id) }}" method="POST">
-        @method('PUT')
-        @csrf
-        <label for="card-name">Card Name</label>
-        <div id="card-name"></div>
+    <div class="container">
 
-        <label for="card-number">Card Number</label>
-        <div id="card-number"></div>
+        <h3 class="text-start my-5">Inserisci i dati nei campi per effettuare il pagamento :</h3>
 
-        <label for="cvv">CVV</label>
-        <div id="cvv"></div>
+        <form id="payment-form" action="{{ route('admin.sponsors.update', $request->apartment_id) }}" method="POST">
+            @method('PUT')
+            @csrf
 
-        <label for="expiration-date">Expiration Date</label>
-        <div id="expiration-date"></div>
+            <div class="row">
+                <div class="col-6 mb-2">
+                    <label class="label" for="card-name">Card Name* :</label>
+                    <div class="input" id="card-name"></div>
+                </div>
+                <div class="col-6 mb-2">
+                    <label class="label" for="card-number">Card Number* :</label>
+                    <div class="input" id="card-number"></div>
+                </div>
+                <div class="col-6 mb-2">
+                    <label class="label" for="cvv">CVV* :</label>
+                    <div class="input" id="cvv"></div>
+                </div>
+                <div class="col-6 mb-2">
+                    <label class="label" for="expiration-date">Expiration Date* :</label>
+                    <div class="input" id="expiration-date"></div>
+                </div>
+                <div class="col-12">
+                    <input type="hidden" id="nonce" name="payment_method_nonce">
+                    <input type="hidden" value="{{ $request->apartment_id }}" name="apartment_id">
+                    <input type="hidden" value="{{ $request->sponsor_id }}" name="sponsor_id">
+                </div>
+            </div>
 
-        <input type="hidden" id="nonce" name="payment_method_nonce">
-        <input type="hidden" value="{{ $request->apartment_id }}" name="apartment_id">
-        <input type="hidden" value="{{ $request->sponsor_id }}" name="sponsor_id">
+            <input class="btn btn-success mt-4" type="submit" value="Pay" />
 
-        <input type="submit" value="Pay" />
-    </form>
+        </form>
+        <h6 class="text-end mt-1">Powered by BrainTree</h6>
+    </div>
 @endsection
 
 @section('scripts')

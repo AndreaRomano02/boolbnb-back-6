@@ -22,6 +22,12 @@ braintree.client.create(
                         "font-size": "1rem",
                         color: "#495057",
                     },
+                    '.valid': {
+                      'color': 'green',
+                    },
+                    '.invalid': {
+                        'color': 'red',
+                    }
                 },
                 fields: {
                     cardholderName: {
