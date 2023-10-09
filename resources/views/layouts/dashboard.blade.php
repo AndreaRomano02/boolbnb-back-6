@@ -46,7 +46,7 @@
                     {{-- # Vai ai tui Appartamenti --}}
                     <div class="card my-3">
                         <div class="card-body">
-                            <a class="btn btn-outline-primary" href="{{ route('admin.apartments.index') }}">
+                            <a class="btn btn-primary" href="{{ route('admin.apartments.index') }}">
                                 <div class="d-flex align-items-cente justify-content-start">
                                     <span class="material-symbols-outlined me-2">
                                         apartment
@@ -95,11 +95,11 @@
                     {{-- # Vai nei messaggi --}}
                     <div class="card my-3">
                         <div class="card-body">
-                            <a href="{{ route('admin.messagges.index') }}" class="btn btn-warning">
+                            <a href="{{ route('admin.messagges.index') }}" class="btn btn-info">
                                 <div class="d-flex align-items-cente justify-content-start">
 
                                     <span class="material-symbols-outlined me-2">
-                                        star
+                                        mail
                                     </span>
                                     <h6 class="mt-1 mb-0">
                                         I tuoi messaggi
@@ -113,10 +113,10 @@
                     {{-- # Vai all'archivio --}}
                     <div class="card my-3">
                         <div class="card-body">
-                            <a href="{{ route('admin.messagges.archive') }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.messagges.archive') }}" class="btn btn-outline-primary">
                                 <div class="d-flex align-items-cente justify-content-start">
                                     <span class="material-symbols-outlined me-2">
-                                        archive
+                                        inventory_2
                                     </span>
                                     <h6 class="pt-1 mb-0">
                                         Vai all'archivio dei messaggi
