@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApartmentController;
 use App\Http\Controllers\Api\MessaggeController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\VisitController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::apiResource('/apartments/visit', VisitController::class);
 Route::apiResource('/apartments/messagge', MessaggeController::class);
 Route::get('apartments/services', [ServiceController::class, 'index']);
 Route::apiResource('/apartments', ApartmentController::class);

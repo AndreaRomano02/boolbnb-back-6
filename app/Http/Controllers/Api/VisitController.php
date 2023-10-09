@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Message;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 
-class MessaggeController extends Controller
+class VisitController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        //
     }
 
     /**
@@ -20,34 +21,30 @@ class MessaggeController extends Controller
      */
     public function store(Request $request)
     {
-        $data_messagge = $request->all();
         $request->validate(
             [
                 'apartment_id' => 'required|exists:apartments,id',
-                'name' => 'required|string',
-                'surname' => 'required|string',
-                'email' => 'required|string',
-                'content' => 'required|string',
+                'date' => 'required|date_format:Y-m-d H:i:s',
+                'IP_address' => 'required'
             ],
             [
                 'apartment_id.required' => 'Dati dell\' appartamento inesistenti',
                 'apartment_id.exists' => 'Il messaggio non può essere inviato all\'appartamento selezionato',
-                'name.required' => 'Il Nome è obbligatorio',
-                'surname.required' => 'Il cognome è obbligatorio',
-                'email.required' => 'L\' Email è obbligatoria',
-                'content.required' => 'Il Contenuto dell\'messaggio è obbligatorio',
+                'date.required' => 'La data è obbligatoria',
+                'IP_address.required' => 'l\'ip è obbligatorio'
             ]
+
         );
 
-        $messagge = new Message();
+        $data_visit = $request->all();
+        $visit = new Visit();
 
-        $messagge->apartment_id =  $data_messagge['apartment_id'];
-        $messagge->name =  $data_messagge['name'];
-        $messagge->surname =  $data_messagge['surname'];
-        $messagge->email =  $data_messagge['email'];
-        $messagge->content =  $data_messagge['content'];
+        $visit->apartment_id =  $data_visit['apartment_id'];
+        $visit->IP_address =  $data_visit['IP_address'];
+        $visit->date =  $data_visit['date'];
 
-        $messagge->save();
+
+        $visit->save();
     }
 
     /**

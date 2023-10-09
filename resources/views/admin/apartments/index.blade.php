@@ -42,6 +42,7 @@
                             </div>
                         </div>
                         <p class="card-text">{{ $apartment->description }}</p>
+                        <p><strong>Visualizzazioni: </strong> {{ count($apartment->visits) }}</p>
                     </div>
                 </div>
             </div>
