@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ApartmentController as AdminApartmentController;
+use App\Http\Controllers\Admin\MessaggeController;
 use App\Http\Controllers\admin\PaymentController;
 use App\Http\Controllers\Admin\SponsorController;
 use App\Http\Controllers\Guest\ApartmentController as GuestApartmentController;
@@ -49,8 +50,8 @@ Route::prefix('guest/')->name('guest.')->group(function () {
 
 // admin
 Route::prefix('admin/')->name('admin.')->group(function () {
-    //* archive
 
+    //* archive
     Route::get('apartments/archive', [AdminApartmentController::class, 'archive'])->name('apartments.archive');
     Route::delete('apartments/dropAll', [AdminApartmentController::class, 'dropAll'])->name('apartments.dropAll');
     Route::patch('apartments/{project}/restore', [AdminApartmentController::class, 'restore'])->name('apartments.restore');
@@ -58,6 +59,9 @@ Route::prefix('admin/')->name('admin.')->group(function () {
 
     //# Resources apartment
     Route::resource('apartments', AdminApartmentController::class);
+
+    // resources messagges
+    Route::resource('messagges', MessaggeController::class);
 
     //# Resources sponsors
     Route::get('sponsors/checkout/{apartment}', [SponsorController::class, 'checkout'])->name('sponsors.checkout');
