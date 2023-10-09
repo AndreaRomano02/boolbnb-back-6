@@ -109,6 +109,23 @@
                         </div>
                     </div>
 
+
+                    {{-- # Vai all'archivio --}}
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <a href="{{ route('admin.messagges.archive') }}" class="btn btn-secondary">
+                                <div class="d-flex align-items-cente justify-content-start">
+                                    <span class="material-symbols-outlined me-2">
+                                        archive
+                                    </span>
+                                    <h6 class="pt-1 mb-0">
+                                        Vai all'archivio dei messaggi
+                                    </h6>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

@@ -61,6 +61,8 @@ Route::prefix('admin/')->name('admin.')->group(function () {
     Route::resource('apartments', AdminApartmentController::class);
 
     // resources messagges
+    Route::get('messagges/archive', [MessaggeController::class, 'archive'])->name('messagges.archive');
+
     Route::resource('messagges', MessaggeController::class);
 
     //# Resources sponsors
