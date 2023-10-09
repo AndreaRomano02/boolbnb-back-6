@@ -71,10 +71,11 @@
                                     @if ($last_sponsor)
                                         @if ($last_sponsor['pivot']->end_date < $current_date)
                                             <strong>Sponsor: </strong>
-                                            Non hai nessun sponsor Attivo
+                                            La tua sponsorizzazione è scaduta... RINNOVALA ORA!
                                         @else
                                             <strong>Sponsor: </strong>
-                                            {{ $last_sponsor->plan }}
+                                            {{ $last_sponsor->plan }} e scadrà il
+                                            {{ str_replace('-', '/', $last_sponsor['pivot']->end_date) }}
                                         @endif
                                     @else
                                         <strong>Sponsor: </strong>

@@ -5,6 +5,12 @@
 
         <h3 class="text-start my-5">Inserisci i dati nei campi per effettuare il pagamento :</h3>
 
+        <div>
+            <h4>Sponsor <strong>{{ $sponsor->plan }}</strong></h4>
+            <span>Price: € {{ $sponsor->price }}</span>
+            <span>Duration: h{{ $sponsor->duration }}</span>
+        </div>
+
         <form id="payment-form" action="{{ route('admin.sponsors.update', $request->apartment_id) }}" method="POST">
             @method('PUT')
             @csrf

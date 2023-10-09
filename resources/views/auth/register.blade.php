@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="col-6 mb-4">
                                     {{-- surname --}}
-                                    <label for="surname" class="form-label text-md-right">Cognome :</label>
+                                    <label for="surname" class="form-label text-md-right">Surname :</label>
                                     <input id="surname" type="text"
                                         class="form-control @error('surname') is-invalid @enderror"name="surname"
                                         value="{{ old('surname') }}" autocomplete="surname" autofocus>
@@ -54,8 +54,7 @@
                                 </div>
                                 <div class="col-6 mb-4">
                                     {{-- date-of-birth --}}
-                                    <label for="date" class="form-label text-md-right">Data
-                                        dinascita :</label>
+                                    <label for="date" class="form-label text-md-right">Date of Birth :</label>
                                     <input id="date" type="date"
                                         class="form-control @error('date_birth') is-invalid @enderror"name="date_birth"
                                         value="{{ old('date_birth') }}" autocomplete="date_birth" autofocus>
