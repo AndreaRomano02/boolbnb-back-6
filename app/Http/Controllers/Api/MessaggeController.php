@@ -49,7 +49,7 @@ class MessaggeController extends Controller
 
         $messagge->save();
         // dd($messagge);
-        return response()->json($messagge);
+        // return response()->json($messagge);
     }
 
     /**
