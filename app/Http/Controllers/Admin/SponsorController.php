@@ -111,20 +111,20 @@ class SponsorController extends Controller
     public function checkout(Request $request, Apartment $apartment)
     {
         $current_date =  Carbon::now()->timezone('Europe/Stockholm');
-
+        $sponsor = Sponsor::where('id', $request->sponsor_id)->first();
 
         //# Controllo se ha gia una sponsorizzazione in corso
         if (count($apartment->sponsors)) {
-            $last_sponsor = $apartment->sponsors[count($apartment->sponsors) - 1]['pivot'];
+            $last_sponsor = $apartment->sponsors[count($apartment->sponsors) - 1]['pivot'] ?? '';
 
             if (strtotime($last_sponsor->end_date) > strtotime($current_date)) {
                 $end_date =   Carbon::parse($last_sponsor->end_date)->format('d-m-Y H:m:s');
-
+                $end_date = str_replace('-', '/', $end_date);
                 return to_route('admin.apartments.show', compact('apartment'))
                     ->with('type', 'danger')
                     ->with('message', "Hai gia una sponsorizzazione in corso valida fino al $end_date");
             }
         }
-        return view('admin.sponsors.payment', compact('request'));
+        return view('admin.sponsors.payment', compact('request', 'sponsor'));
     }
 }
