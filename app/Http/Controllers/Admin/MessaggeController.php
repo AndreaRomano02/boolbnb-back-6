@@ -74,8 +74,15 @@ class MessaggeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Message $messagge)
     {
-        //
+        $messagge->delete();
+        return to_route('admin.messagges.index')->with('type', 'success')->with('message', 'Il messaggio è stato spostato nell\'arhcivio con successo!');
+    }
+
+    public function archive()
+    {
+        $messagges = Message::onlyTrashed()->get();
+        return view('admin.messagges.archive', compact('messagges'));
     }
 }

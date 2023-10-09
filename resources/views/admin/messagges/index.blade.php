@@ -28,15 +28,13 @@
                                 <a href="{{ route('admin.messagges.show', $messagge->id) }}" class="btn btn-primary me-2">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
-                                <a href="#" class="btn btn-warning me-2">
-                                    <i class="fa-solid fa-pen-nib"></i>
-                                </a>
-                                <form action="#" method="POST">
-                                    @method('delete')
+
+                                <form class="destroy-form-messagge"
+                                    action="{{ route('admin.messagges.destroy', $messagge) }}" method="POST"
+                                    data-title="{{ $messagge->email }}" data-bs-toggle="modal" data-bs-target="#modal">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
+                                    @method('DELETE')
+                                    <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </form>
 
                             </div>
@@ -53,4 +51,8 @@
             </tbody>
         </table>
     </div>
+@endsection
+
+@section('scripts')
+    @Vite('resources/js/delete-messagge.js')
 @endsection
