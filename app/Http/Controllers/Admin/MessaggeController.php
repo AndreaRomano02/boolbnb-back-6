@@ -16,13 +16,8 @@ class MessaggeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $apartments = Apartment::where('user_id', $user->id)->get();
-        $messagges = [];
-        foreach ($apartments as $apartment) {
-            $messagges = Message::where('apartment_id', $apartment->id)->get();
-        }
-
-        return view('admin.messagges.index', compact('apartment', 'user', 'messagges'));
+        $apartments = Apartment::where('user_id', $user->id)->with('messages')->get();
+        return view('admin.messagges.index', compact('apartments'));
     }
 
     /**
