@@ -94,7 +94,8 @@ class ApartmentController extends Controller
             return response()->json($apartments_filtered);
         }
 
-        $apartments =  $apartments->paginate(10);
+        if ($data['all']) $apartments =  $apartments->get();
+        else $apartments =  $apartments->paginate(10);
 
         return response()->json($apartments);
     }
