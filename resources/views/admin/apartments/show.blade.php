@@ -2,24 +2,27 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+        <h1 class="my-5 text-white text-center">Visualizza l'appartamento</h1>
+        <div id="card-show" class="card my-5">
 
-                <h1 class="my-5">Visualizza l'appartamento</h1>
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2">
+                <div class="col">
+                    <div class="container">
 
-                <div class="row my-5">
-                    <div class="col-6">
                         @if (!$apartment->is_visible)
                             <h3 class="text-danger">NON PUBBLICATO</h3>
                         @endif
                         <h2>{{ $apartment->title }}</h2>
                         @if (count($apartment->images))
-                            <img class="card-img-top img-fluid"
+                            <img id="image-show" class="card-img-top"
                                 src="{{ 'http://127.0.0.1:8000/storage/' . $apartment->images[0]->path }}" />
                         @endif
                     </div>
-                    <div class="col-6">
-                        <div class="h-100 d-flex flex-column justify-content-between align-items-start">
+                </div>
+                <div class="col">
+                    <div class="container">
+
+                        <div class="">
                             <div>
                                 <p>
                                     <strong>Descrizione: </strong>
@@ -85,44 +88,38 @@
                                 </div>
 
                             </div>
-                            <div>
 
-                                <div class="d-flex gap-4 justify-content-center  align-items-center">
-                                    <a href="{{ route('admin.apartments.index') }}" class="btn btn-success">Torna
-                                        indietro</a>
-
-                                    {{-- # EDIT --}}
-                                    <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-warning"><i
-                                            class="fas fa-pencil"></i> Modifica</a>
-                                    {{-- # DELETE --}}
-                                    @if (!$apartment->trashed())
-                                        <form class="destroy-form"
-                                            action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
-                                            data-title="{{ $apartment->title }}" data-bs-toggle="modal"
-                                            data-bs-target="#modal">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger"><i class="fas fa-trash"></i> Sposta
-                                                nell'archivio</button>
-                                        </form>
-                                    @else
-                                        <form class="destroy-form"
-                                            action="{{ route('admin.apartments.restore', $apartment->id) }}" method="POST"
-                                            data-title="{{ $apartment->title }}">
-                                            @csrf
-                                            @method('PATCH')
-                                            <button class="btn btn-primary"><i class="fas fa-save"></i> Ripristina</button>
-                                        </form>
-                                    @endif
-                                    <a href="{{ route('admin.sponsors.edit', $apartment->id) }}"
-                                        class="btn btn-secondary">Sponsorizza</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
+        </div>
+
+        <div class="d-flex gap-4 justify-content-center  align-items-center my-4">
+            <a href="{{ route('admin.apartments.index') }}" class="btn btn-success">Home</a>
+
+            {{-- # EDIT --}}
+            <a href="{{ route('admin.apartments.edit', $apartment) }}" class="btn btn-warning"><i
+                    class="fas fa-pencil me-2"></i>Modifica</a>
+            {{-- # DELETE --}}
+            @if (!$apartment->trashed())
+                <form class="destroy-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST"
+                    data-title="{{ $apartment->title }}" data-bs-toggle="modal" data-bs-target="#modal">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger"><i class="fas fa-trash me-2"></i>Archivia</button>
+                </form>
+            @else
+                <form class="destroy-form" action="{{ route('admin.apartments.restore', $apartment->id) }}" method="POST"
+                    data-title="{{ $apartment->title }}">
+                    @csrf
+                    @method('PATCH')
+                    <button class="btn btn-primary"><i class="fas fa-save me-2"></i>
+                        Ripristina</button>
+                </form>
+            @endif
+            <a href="{{ route('admin.sponsors.edit', $apartment->id) }}" class="btn btn-secondary">Sponsorizza</a>
         </div>
 
     </div>

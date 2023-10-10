@@ -23,6 +23,7 @@ body{
     .right-col {
         height: 109%;
     }
+
 }
 
 @media screen and (min-width: 769px){
@@ -31,6 +32,20 @@ body{
         position: absolute;
         left: -114px;
     }
+    
+}
+
+@media screen and (min-width: 1085px){
+    
+    #image-show{
+        width: 360px;
+    }
+
+    #card-show{
+        margin: 0 auto;
+        width: 768px;
+    }
+   
     
 }
 

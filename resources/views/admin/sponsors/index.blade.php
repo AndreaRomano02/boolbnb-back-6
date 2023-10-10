@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="my-5">I nostri Sponsors:</h1>
-    <div class="row row-cols-3 g-4 my-5">
+    <div class="row row-cols-1 row-cols-md-2  row-cols-lg-2 g-4 my-5">
         @foreach ($sponsors as $sponsor)
             <div class="col">
 
