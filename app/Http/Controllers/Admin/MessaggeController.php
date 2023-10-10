@@ -44,7 +44,7 @@ class MessaggeController extends Controller
 
         $user = Auth::user();
         $messagge = Message::where('id', $id)->find($id);
-        $apartment = Apartment::with('images')->where('id', $messagge->apartment_id)->get();
+        $apartment = Apartment::with('images')->where('id', $messagge->apartment_id)->first();
         if (!Apartment::withTrashed()->find($messagge->apartment_id)) abort(404);
         else if (!Auth::user() || !$apartment) abort(403);
         return view('admin.messagges.show', compact('apartment', 'user', 'messagge'));
