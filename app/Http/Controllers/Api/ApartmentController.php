@@ -46,7 +46,7 @@ class ApartmentController extends Controller
         $userlatitude = null;
         $key = 'key=PWX9HGsOx1sGv84PlpxzgXIbaElOjVMF';
 
-        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images');
+        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->where('is_visible', true);
 
         if (strlen($beds)) {
             $apartments->where('beds', '>=', $beds);
@@ -94,7 +94,8 @@ class ApartmentController extends Controller
             return response()->json($apartments_filtered);
         }
 
-        $apartments =  $apartments->paginate(10);
+        if (isset($data['all'])) $apartments =  $apartments->get();
+        else $apartments =  $apartments->paginate(10);
 
         return response()->json($apartments);
     }
@@ -181,7 +182,7 @@ class ApartmentController extends Controller
      */
     public function show(string $id)
     {
-        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->find($id);
+        $apartments = Apartment::with('messages', 'services', 'sponsors', 'visits', 'images')->where('is_visible', true)->find($id);
         if (!$apartments) return response(null, 404);
         return response()->json($apartments);
     }
