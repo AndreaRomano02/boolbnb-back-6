@@ -11,126 +11,126 @@
         @include('includes/layout/alert')
 
         <div class="row g-0">
-            <div class="col-3 columns-sx">
+            <div class="d-none d-sm-none col-md-3 d-md-inline-block columns-sx">
 
-                {{-- # Account Name --}}
+                {{-- dashboard --}}
                 <div class="container left-col">
-                    <a class="dropdown-item my-4" href="{{ url('profile') }}">
-                        <div class="d-flex align-items-start">
-                            <span class="material-symbols-outlined dash-icon">
-                                account_circle
-                            </span>
-                            <h3 class="fs-4 text-secondary">
-                                {{ Auth::user()->name }}
-                            </h3>
-                        </div>
-                    </a>
 
-                    {{-- # Aggiungi un appartamento --}}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <a href="{{ route('admin.apartments.create') }}" class="btn btn-success">
-                                <div class="d-flex align-items-cente justify-content-start">
+                    <div class="my-4">
+                        {{-- # Account Name --}}
 
-                                    <span class="material-symbols-outlined me-2">
-                                        add
-                                    </span>
-                                    <h6 class="pt-1 mb-0">
-                                        Aggiungi un appartamento
-                                    </h6>
-                                </div>
-                            </a>
-                        </div>
+                        <a class="dropdown-item" href="{{ url('profile') }}">
+                            <div class="d-flex align-items-start">
+                                <span class="material-symbols-outlined dash-icon text-white">
+                                    account_circle
+                                </span>
+                                <h3 class="fs-4 text-white">
+                                    {{ Auth::user()->name }}
+                                </h3>
+                            </div>
+                        </a>
                     </div>
 
-                    {{-- # Vai ai tui Appartamenti --}}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <a class="btn btn-primary" href="{{ route('admin.apartments.index') }}">
-                                <div class="d-flex align-items-cente justify-content-start">
-                                    <span class="material-symbols-outlined me-2">
-                                        apartment
-                                    </span>
-                                    <h6 class="pt-1 mb-0">
-                                        Vai ai tui Appartamenti
-                                    </h6>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="my-4">
+
+                        {{-- # Aggiungi un appartamento --}}
+                        <a href="{{ route('admin.apartments.create') }}" class="btn btn-info">
+                            <div class="d-flex align-items-cente justify-content-start">
+
+                                <span class="material-symbols-outlined me-2">
+                                    add
+                                </span>
+                                <h6 class="pt-1 mb-0">
+                                    Aggiungi un appartamento
+                                </h6>
+                            </div>
+                        </a>
                     </div>
 
-                    {{-- # Vai all'archivio --}}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <a href="{{ route('admin.apartments.archive') }}" class="btn btn-secondary">
-                                <div class="d-flex align-items-cente justify-content-start">
-                                    <span class="material-symbols-outlined me-2">
-                                        archive
-                                    </span>
-                                    <h6 class="pt-1 mb-0">
-                                        Vai all'archivio
-                                    </h6>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="my-4">
+
+                        {{-- # Vai ai tui Appartamenti --}}
+                        <a class="btn btn-info" href="{{ route('admin.apartments.index') }}">
+                            <div class="d-flex align-items-cente justify-content-start">
+                                <span class="material-symbols-outlined me-2">
+                                    apartment
+                                </span>
+                                <h6 class="pt-1 mb-0">
+                                    Vai ai tui Appartamenti
+                                </h6>
+                            </div>
+                        </a>
                     </div>
 
-                    {{-- # Vai nei sponsor --}}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <a href="{{ route('admin.sponsors.index') }}" class="btn btn-warning">
-                                <div class="d-flex align-items-cente justify-content-start">
+                    <div class="my-4">
+                        {{-- # Vai all'archivio --}}
 
-                                    <span class="material-symbols-outlined me-2">
-                                        star
-                                    </span>
-                                    <h6 class="mt-1 mb-0">
-                                        Sponsors
-                                    </h6>
-                                </div>
-                            </a>
-                        </div>
+                        <a href="{{ route('admin.apartments.archive') }}" class="btn btn-info">
+                            <div class="d-flex align-items-cente justify-content-start">
+                                <span class="material-symbols-outlined me-2">
+                                    archive
+                                </span>
+                                <h6 class="pt-1 mb-0">
+                                    Vai all'archivio
+                                </h6>
+                            </div>
+                        </a>
                     </div>
 
-                    {{-- # Vai nei messaggi --}}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <a href="{{ route('admin.messagges.index') }}" class="btn btn-info">
-                                <div class="d-flex align-items-cente justify-content-start">
+                    <div class="my-4">
 
-                                    <span class="material-symbols-outlined me-2">
-                                        mail
-                                    </span>
-                                    <h6 class="mt-1 mb-0">
-                                        I tuoi messaggi
-                                    </h6>
-                                </div>
-                            </a>
-                        </div>
+                        {{-- # Vai nei sponsor --}}
+                        <a href="{{ route('admin.sponsors.index') }}" class="btn btn-info">
+                            <div class="d-flex align-items-cente justify-content-start">
+
+                                <span class="material-symbols-outlined me-2">
+                                    star
+                                </span>
+                                <h6 class="mt-1 mb-0">
+                                    Sponsors
+                                </h6>
+                            </div>
+                        </a>
+
                     </div>
 
+                    <div class="my-4">
 
-                    {{-- # Vai all'archivio --}}
-                    <div class="card my-3">
-                        <div class="card-body">
-                            <a href="{{ route('admin.messagges.archive') }}" class="btn btn-outline-primary">
-                                <div class="d-flex align-items-cente justify-content-start">
-                                    <span class="material-symbols-outlined me-2">
-                                        inventory_2
-                                    </span>
-                                    <h6 class="pt-1 mb-0">
-                                        Vai all'archivio dei messaggi
-                                    </h6>
-                                </div>
-                            </a>
-                        </div>
+                        {{-- # Vai nei messaggi --}}
+                        <a href="{{ route('admin.messagges.index') }}" class="btn btn-info">
+                            <div class="d-flex align-items-cente justify-content-start">
+
+                                <span class="material-symbols-outlined me-2">
+                                    mail
+                                </span>
+                                <h6 class="mt-1 mb-0">
+                                    I tuoi messaggi
+                                </h6>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="my-4">
+
+                        {{-- # Vai all'archivio --}}
+                        <a href="{{ route('admin.messagges.archive') }}" class="btn btn-info">
+                            <div class="d-flex align-items-cente justify-content-start">
+                                <span class="material-symbols-outlined me-2">
+                                    inventory_2
+                                </span>
+                                <h6 class="pt-1 mb-0">
+                                    Vai all'archivio dei messaggi
+                                </h6>
+                            </div>
+                        </a>
                     </div>
 
                 </div>
+
             </div>
 
             {{-- # Content --}}
-            <div class="col-9 columns-dx">
+            <div class="col-xs-12 col-sm-12 col-md-9 columns-dx">
                 <div class="right-col">
                     <div class="container">
                         @yield('content')

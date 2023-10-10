@@ -2,22 +2,18 @@ import axios from "axios";
 
 const dropdown = document.getElementById("dropdown");
 const inputElement = document.getElementById("address");
-const latitudeField = document.getElementById("latitude");
-const longitudeField = document.getElementById("longitude");
 const form = document.getElementById("form");
 const feedback = document.querySelector(".feedback-address");
 
 const url = "https://api.tomtom.com/search/2/search/";
-let latitude = "";
-let longitude = "";
+
 let is_clicked = true;
 
 //# Attendo che venga scritto qualcosa nell'input
 inputElement.addEventListener("input", (e) => {
     //* Azzero le variabili
     is_clicked = false;
-    latitudeField.value = "";
-    longitudeField.value = "";
+
     dropdown.classList.remove("show");
     const input = inputElement.value;
 
@@ -46,10 +42,7 @@ inputElement.addEventListener("input", (e) => {
                             is_clicked = true;
                             inputElement.value = item.innerText;
                             dropdown.classList.remove("show");
-                            latitude = res.data.results[0]["position"]["lat"];
-                            longitude = res.data.results[0]["position"]["lon"];
-                            latitudeField.value = latitude;
-                            longitudeField.value = longitude;
+                           
                         });
                     });
                 });

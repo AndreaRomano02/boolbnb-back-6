@@ -1,7 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="my-4 ms-3">Messaggi</h1>
+    <h1 class="my-4 ms-3 text-white">Messaggi</h1>
+
     <div class="container">
         <table class="table">
             <thead>
