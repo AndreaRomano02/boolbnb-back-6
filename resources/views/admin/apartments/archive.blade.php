@@ -3,11 +3,11 @@
 @section('title', 'Archive')
 
 @section('content')
-    <h1>Archivio</h1>
     <div class="d-flex justify-content-between  my-4">
-        <a class="btn btn-outline-secondary" href="{{ route('admin.apartments.index') }}">Torna all'elenco</a>
+        <h1 class="text-white">Archivio</h1>
+        <a class="btn btn-secondary text-white mb-0 pb-0" href="{{ route('admin.apartments.index') }}">Torna all'elenco</a>
     </div>
-    <section class="row row-cols-3">
+    <section class="row row-cols-1 row-cols-md-2 row-cols-sm-1 row-cols-lg-3">
         @if (count($apartments))
             @foreach ($apartments as $apartment)
                 <div class="col">

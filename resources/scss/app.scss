@@ -1,3 +1,5 @@
+@use "card";
+@use "navbar";
 @use "dashboard";
 @use "payment";
 @use "utils";
@@ -5,6 +7,8 @@
 
 body{
     display: block;
+   
+    background: linear-gradient(90deg, rgb(30, 58, 48) 0%, rgb(27, 68, 102) 100%);
 }
 
 .alert{
@@ -12,4 +16,29 @@ body{
     z-index: 1;
     left: 720px;
     top: 47px;
+}
+
+@media screen and (max-width: 769px){
+   
+    .right-col {
+        height: 109%;
+    }
+}
+
+@media screen and (min-width: 769px){
+    
+    #menu{
+        position: absolute;
+        left: -114px;
+    }
+    
+}
+
+@media screen and (min-width: 1629px){
+   
+    #menu{
+
+        position: absolute;
+        left: 7px;
+    }
 }

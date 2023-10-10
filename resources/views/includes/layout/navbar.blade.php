@@ -1,21 +1,24 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light shadow-lg">
     <div class="container">
         <div class="d-flex align-items-center justify-content-between">
 
-            <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">BoolBnb</a>
-            <ul class="navbar-nav" style="margin: 38px 0;">
+            <a class="navbar-brand me-5" href="{{ url('/') }}">
+                <img class="logo" src="{{ asset('images/logotype_a.png') }}" alt="logo">
+            </a>
+            <ul class="d-none d-md-flex navbar-nav " style="margin: 38px 0;">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
+                    <a class="nav-link text-white" href="{{ url('/') }}">{{ __('Home') }}</a>
                 </li>
 
                 @guest
                     <li class="nav-item">
-                        <a href="#" class="nav-link">Scopri di più</a>
+                        <a href="#" class="nav-link text-white">Scopri di più</a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
+                        <a class="nav-link text-white" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
                     </li>
+
 
                 @endguest
             </ul>
@@ -32,22 +35,29 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                 @else
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <div id="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
+                            <a class="dropdown-item" href="{{ route('admin.apartments.index') }}">I tuoi Appartamenti</a>
+                            <a class="dropdown-item" href="{{ route('admin.apartments.create') }}">Aggiungi un
+                                appartamento</a>
+                            <a class="dropdown-item" href="{{ route('admin.apartments.archive') }}">Archivio
+                                appartamenti</a>
+                            <a class="dropdown-item" href="{{ route('admin.messagges.index') }}">I tuoi messaggi</a>
+                            <a class="dropdown-item" href="{{ route('admin.messagges.archive') }}">Archivio messaggi</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
