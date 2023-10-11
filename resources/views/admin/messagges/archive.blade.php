@@ -16,13 +16,15 @@
             </thead>
             <tbody>
                 @forelse ($messagges as $messagge)
-                    <tr>
-                        <th scope="row">{{ $messagge->name }}</th>
-                        <td>{{ $messagge->surname }}</td>
-                        <td>{{ $messagge->email }}</td>
-                        <td>{{ $messagge->content }}</td>
+                    @foreach ($messagge as $m)
+                        <tr>
+                            <th scope="row">{{ $m->name }}</th>
+                            <td>{{ $m->surname }}</td>
+                            <td>{{ $m->email }}</td>
+                            <td>{{ $m->content }}</td>
 
-                    </tr>
+                        </tr>
+                    @endforeach
                 @empty
                     <tr>
                         <td class="text-center" colspan="4">

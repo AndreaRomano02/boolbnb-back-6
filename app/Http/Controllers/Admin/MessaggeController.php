@@ -17,7 +17,11 @@ class MessaggeController extends Controller
     {
         $user = Auth::user();
         $apartments = Apartment::where('user_id', $user->id)->with('messages')->get();
-        return view('admin.messagges.index', compact('apartments'));
+        $messagges = [];
+        foreach ($apartments as $apartment) {
+            if (count($apartment->messages)) $messagges[] = $apartment->messages;
+        }
+        return view('admin.messagges.index', compact('messagges'));
     }
 
     /**
@@ -81,7 +85,7 @@ class MessaggeController extends Controller
         $apartments = Apartment::where('user_id', $user->id)->get();
         $messagges = [];
         foreach ($apartments as $apartment) {
-            $messagges = Message::where('apartment_id', $apartment->id)->onlyTrashed()->get();
+            $messagges[] = Message::where('apartment_id', $apartment->id)->onlyTrashed()->get();
         }
         return view('admin.messagges.archive', compact('messagges'));
     }
