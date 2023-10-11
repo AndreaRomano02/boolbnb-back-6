@@ -77,7 +77,12 @@ class MessaggeController extends Controller
 
     public function archive()
     {
-        $messagges = Message::onlyTrashed()->get();
+        $user = Auth::user();
+        $apartments = Apartment::where('user_id', $user->id)->get();
+        $messagges = [];
+        foreach ($apartments as $apartment) {
+            $messagges = Message::where('apartment_id', $apartment->id)->onlyTrashed()->get();
+        }
         return view('admin.messagges.archive', compact('messagges'));
     }
 }

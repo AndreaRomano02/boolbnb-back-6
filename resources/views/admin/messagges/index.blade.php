@@ -15,8 +15,8 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($apartments as $apartment)
-                    @foreach ($apartment->messages as $messagge)
+                @foreach ($apartments as $apartment)
+                    @forelse ($apartment->messages as $messagge)
                         <tr>
                             <th scope="row">{{ $messagge->name }}</th>
                             <td>{{ $messagge->surname }}</td>
@@ -41,15 +41,14 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
-                @empty
-                    <tr>
-                        <td class="text-center text-white" colspan="5">
-                            <h3>Non ci sono messaggi</h3>
-                        </td>
-                    </tr>
-                @endforelse
-
+                    @empty
+                        <tr>
+                            <td class="text-center" colspan="5">
+                                <h3>Non ci sono messaggi</h3>
+                            </td>
+                        </tr>
+                    @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
