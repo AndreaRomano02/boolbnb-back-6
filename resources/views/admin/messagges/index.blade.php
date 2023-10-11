@@ -44,7 +44,7 @@
                     @endforeach
                 @empty
                     <tr>
-                        <td class="text-center" colspan="5">
+                        <td class="text-center text-white" colspan="5">
                             <h3>Non ci sono messaggi</h3>
                         </td>
                     </tr>

@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="my-5">I nostri Sponsors:</h1>
-    <div class="row row-cols-1 row-cols-md-2  row-cols-lg-2 g-4 my-5">
+    <h1 class="my-5 text-white">I nostri Sponsors:</h1>
+    <div class="row row-cols-1 row-cols-md-2  row-cols-lg-2 row-cols-xl-3 g-4 my-5">
         @foreach ($sponsors as $sponsor)
             <div class="col">
 

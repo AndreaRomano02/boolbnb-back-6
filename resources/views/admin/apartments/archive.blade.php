@@ -37,7 +37,7 @@
                 </div>
             @endforeach
         @else
-            <div class="container text-center my-5">
+            <div class="container text-center text-white my-5">
                 <h1>Archivio Vuoto</h1>
             </div>
         @endif
